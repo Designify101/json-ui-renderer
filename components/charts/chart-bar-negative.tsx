@@ -1,6 +1,6 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
+import dynamic from "next/dynamic"
 import { Bar, BarChart, CartesianGrid, Cell, LabelList } from "recharts"
 
 import {
@@ -40,43 +40,46 @@ const chartConfig = {
 interface ChartBarNegativeProps {
   data?: any[]
   config?: any
+  footer?: {
+    title?: string
+    subtitle?: string
+  }
 }
 
-export function ChartBarNegative({ data = chartData, config = chartConfig }: ChartBarNegativeProps) {
+// Internal chart component
+function ChartBarNegativeInternal({ data = chartData, config = chartConfig }: Omit<ChartBarNegativeProps, 'footer'>) {
+  // Dynamically detect the category key (first string field) and value key (first numeric field)
+  const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'quarter' : 'quarter'
+  const valueKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'number') || 'profit' : 'profit'
+  
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Quarterly Financial Performance</CardTitle>
-        <CardDescription>Profit & Loss Analysis - 2023-2024</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={config}>
-          <BarChart accessibilityLayer data={data}>
-            <CartesianGrid vertical={false} />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel hideIndicator />}
+    <ChartContainer config={config}>
+      <BarChart accessibilityLayer data={data}>
+        <CartesianGrid vertical={false} />
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent hideLabel hideIndicator />}
+        />
+        <Bar dataKey={valueKey}>
+          <LabelList position="top" dataKey={categoryKey} fillOpacity={1} />
+          {data.map((item, index) => (
+            <Cell
+              key={item[categoryKey] || index}
+              fill={item[valueKey] > 0 ? "#10b981" : "#ef4444"} // green-500 for positive, red-500 for negative
             />
-            <Bar dataKey="profit">
-              <LabelList position="top" dataKey="quarter" fillOpacity={1} />
-              {data.map((item) => (
-                <Cell
-                  key={item.quarter}
-                  fill={item.profit > 0 ? "#10b981" : "#ef4444"} // green-500 for profit, red-500 for loss
-                />
-              ))}
-            </Bar>
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Strong recovery in 2024 <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Market restructuring efforts paying off with consistent growth
-        </div>
-      </CardFooter>
-    </Card>
+          ))}
+        </Bar>
+      </BarChart>
+    </ChartContainer>
   )
-} 
+}
+
+// Export dynamic component with SSR disabled to prevent hydration issues
+export const ChartBarNegative = dynamic(() => Promise.resolve(ChartBarNegativeInternal), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[250px] w-full flex items-center justify-center text-muted-foreground">
+      Loading chart...
+    </div>
+  ),
+}) 

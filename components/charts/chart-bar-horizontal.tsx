@@ -1,6 +1,6 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
+import dynamic from "next/dynamic"
 import { Bar, BarChart, XAxis, YAxis } from "recharts"
 
 import {
@@ -40,54 +40,53 @@ const chartConfig = {
 interface ChartBarHorizontalProps {
   data?: any[]
   config?: any
+  footer?: {
+    title?: string
+    subtitle?: string
+  }
 }
 
-export function ChartBarHorizontal({ data = chartData, config = chartConfig }: ChartBarHorizontalProps) {
+// Internal chart component
+function ChartBarHorizontalInternal({ data = chartData, config = chartConfig }: Omit<ChartBarHorizontalProps, 'footer'>) {
   // Dynamically detect the category key (first string field) and value key (first numeric field)
   const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'language' : 'language'
   const valueKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'number') || 'usage' : 'usage'
   
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Programming Language Usage</CardTitle>
-        <CardDescription>Developer Survey Results - Q4 2024</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={config}>
-          <BarChart
-            accessibilityLayer
-            data={data}
-            layout="vertical"
-            margin={{
-              left: -20,
-            }}
-          >
-            <XAxis type="number" dataKey={valueKey} hide />
-            <YAxis
-              dataKey={categoryKey}
-              type="category"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Bar dataKey={valueKey} fill="#06b6d4" radius={5} />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          TypeScript leading adoption <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Based on internal developer survey of 250 engineers
-        </div>
-      </CardFooter>
-    </Card>
+    <ChartContainer config={config}>
+      <BarChart
+        accessibilityLayer
+        data={data}
+        layout="vertical"
+        margin={{
+          left: -20,
+        }}
+      >
+        <XAxis type="number" dataKey={valueKey} hide />
+        <YAxis
+          dataKey={categoryKey}
+          type="category"
+          tickLine={false}
+          tickMargin={10}
+          axisLine={false}
+          tickFormatter={(value) => value}
+        />
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent hideLabel />}
+        />
+        <Bar dataKey={valueKey} fill={config[valueKey]?.color || "#06b6d4"} radius={5} />
+      </BarChart>
+    </ChartContainer>
   )
-} 
+}
+
+// Export dynamic component with SSR disabled to prevent hydration issues
+export const ChartBarHorizontal = dynamic(() => Promise.resolve(ChartBarHorizontalInternal), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[250px] w-full flex items-center justify-center text-muted-foreground">
+      Loading chart...
+    </div>
+  ),
+}) 

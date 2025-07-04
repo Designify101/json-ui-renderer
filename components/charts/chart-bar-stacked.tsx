@@ -1,6 +1,6 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
+import dynamic from "next/dynamic"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import {
@@ -50,9 +50,14 @@ const chartConfig = {
 interface ChartBarStackedProps {
   data?: any[]
   config?: any
+  footer?: {
+    title?: string
+    subtitle?: string
+  }
 }
 
-export function ChartBarStacked({ data = chartData, config = chartConfig }: ChartBarStackedProps) {
+// Internal chart component
+function ChartBarStackedInternal({ data = chartData, config = chartConfig }: Omit<ChartBarStackedProps, 'footer'>) {
   // Dynamically detect the category key (first string field) and numeric keys
   const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'team' : 'team'
   const numericKeys = data.length > 0 ? Object.keys(data[0]).filter(key => typeof data[0][key] === 'number') : ['features', 'bugs', 'documentation']
@@ -61,44 +66,38 @@ export function ChartBarStacked({ data = chartData, config = chartConfig }: Char
   const colors = ['#f97316', '#3b82f6', '#06b6d4', '#8b5cf6', '#ec4899', '#10b981']
   
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Team Productivity Dashboard</CardTitle>
-        <CardDescription>Sprint Deliverables by Team - Q4 2024</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={config}>
-          <BarChart accessibilityLayer data={data}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey={categoryKey}
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value}
-            />
-            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-            <ChartLegend />
-            {numericKeys.map((key, index) => (
-              <Bar
-                key={key}
-                dataKey={key}
-                stackId="a"
-                fill={colors[index % colors.length]}
-                radius={index === 0 ? [0, 0, 4, 4] : index === numericKeys.length - 1 ? [4, 4, 0, 0] : [0, 0, 0, 0]}
-              />
-            ))}
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Backend team leading feature delivery <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          QA team focusing on bug resolution and quality improvements
-        </div>
-      </CardFooter>
-    </Card>
+    <ChartContainer config={config}>
+      <BarChart accessibilityLayer data={data}>
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey={categoryKey}
+          tickLine={false}
+          tickMargin={10}
+          axisLine={false}
+          tickFormatter={(value) => value}
+        />
+        <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+        <ChartLegend />
+        {numericKeys.map((key, index) => (
+          <Bar
+            key={key}
+            dataKey={key}
+            stackId="a"
+            fill={config[key]?.color || colors[index % colors.length]}
+            radius={index === 0 ? [0, 0, 4, 4] : index === numericKeys.length - 1 ? [4, 4, 0, 0] : [0, 0, 0, 0]}
+          />
+        ))}
+      </BarChart>
+    </ChartContainer>
   )
-} 
+}
+
+// Export dynamic component with SSR disabled to prevent hydration issues
+export const ChartBarStacked = dynamic(() => Promise.resolve(ChartBarStackedInternal), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[250px] w-full flex items-center justify-center text-muted-foreground">
+      Loading chart...
+    </div>
+  ),
+}) 

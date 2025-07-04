@@ -30,11 +30,14 @@ import { InteractiveAreaChart } from "@/components/custom/interactive-area-chart
 
 // Import bar chart components
 import { ChartBarInteractive } from "@/components/charts/chart-bar-interactive"
+import { ChartBarInteractiveControls } from "@/components/charts/chart-bar-interactive-controls"
+import { ChartBarInteractiveChart } from "@/components/charts/chart-bar-interactive-chart"
 import { ChartBarDefault } from "@/components/charts/chart-bar-default"
 import { ChartBarHorizontal } from "@/components/charts/chart-bar-horizontal"
 import { ChartBarMultiple } from "@/components/charts/chart-bar-multiple"
 import { ChartBarStacked } from "@/components/charts/chart-bar-stacked"
 import { ChartBarNegative } from "@/components/charts/chart-bar-negative"
+import { ChartBarInteractiveWrapper } from '@/components/charts/chart-bar-interactive-wrapper'
 
 console.log("📚 ComponentRegistry: Initializing component registry")
 
@@ -88,11 +91,14 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
 
   // Bar Chart Components
   ChartBarInteractive: ChartBarInteractive,
+  ChartBarInteractiveControls: ChartBarInteractiveControls,
+  ChartBarInteractiveChart: ChartBarInteractiveChart,
   ChartBarDefault: ChartBarDefault,
   ChartBarHorizontal: ChartBarHorizontal,
   ChartBarMultiple: ChartBarMultiple,
   ChartBarStacked: ChartBarStacked,
   ChartBarNegative: ChartBarNegative,
+  ChartBarInteractiveWrapper: ChartBarInteractiveWrapper,
 }
 
 console.log("📚 ComponentRegistry: Registry created with components:", Object.keys(componentRegistry))
@@ -129,6 +135,15 @@ export const componentPropSchemas: Record<string, any> = {
   ChartBarInteractive: {
     data: "any",
     config: "any",
+  },
+  ChartBarInteractiveControls: {
+    data: "any",
+    config: "any",
+  },
+  ChartBarInteractiveChart: {
+    data: "any",
+    config: "any",
+    className: "string",
   },
   ChartBarDefault: {
     data: "any", 

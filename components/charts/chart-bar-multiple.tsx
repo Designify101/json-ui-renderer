@@ -1,6 +1,6 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
+import dynamic from "next/dynamic"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import {
@@ -44,9 +44,14 @@ const chartConfig = {
 interface ChartBarMultipleProps {
   data?: any[]
   config?: any
+  footer?: {
+    title?: string
+    subtitle?: string
+  }
 }
 
-export function ChartBarMultiple({ data = chartData, config = chartConfig }: ChartBarMultipleProps) {
+// Internal chart component
+function ChartBarMultipleInternal({ data = chartData, config = chartConfig }: Omit<ChartBarMultipleProps, 'footer'>) {
   // Dynamically detect the category key (first string field) and numeric keys
   const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'season' : 'season'
   const numericKeys = data.length > 0 ? Object.keys(data[0]).filter(key => typeof data[0][key] === 'number') : ['online', 'inStore']
@@ -55,45 +60,39 @@ export function ChartBarMultiple({ data = chartData, config = chartConfig }: Cha
   const colors = ['#f97316', '#3b82f6', '#06b6d4', '#8b5cf6', '#ec4899', '#10b981']
   
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Sales Channel Performance</CardTitle>
-        <CardDescription>Online vs In-Store Revenue by Season</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={config}>
-          <BarChart accessibilityLayer data={data}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey={categoryKey}
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
-            />
-            {numericKeys.map((key, index) => (
-              <Bar 
-                key={key}
-                dataKey={key} 
-                fill={colors[index % colors.length]} 
-                radius={4} 
-              />
-            ))}
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Online sales up 45% during holiday season <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Digital transformation driving growth across all seasons
-        </div>
-      </CardFooter>
-    </Card>
+    <ChartContainer config={config}>
+      <BarChart accessibilityLayer data={data}>
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey={categoryKey}
+          tickLine={false}
+          tickMargin={10}
+          axisLine={false}
+          tickFormatter={(value) => value}
+        />
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent indicator="dashed" />}
+        />
+        {numericKeys.map((key, index) => (
+          <Bar 
+            key={key}
+            dataKey={key} 
+            fill={config[key]?.color || colors[index % colors.length]} 
+            radius={4} 
+          />
+        ))}
+      </BarChart>
+    </ChartContainer>
   )
-} 
+}
+
+// Export dynamic component with SSR disabled to prevent hydration issues
+export const ChartBarMultiple = dynamic(() => Promise.resolve(ChartBarMultipleInternal), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[250px] w-full flex items-center justify-center text-muted-foreground">
+      Loading chart...
+    </div>
+  ),
+}) 

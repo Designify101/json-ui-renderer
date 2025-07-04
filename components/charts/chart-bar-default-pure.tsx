@@ -1,6 +1,5 @@
 "use client"
 
-import dynamic from "next/dynamic"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import {
@@ -12,7 +11,7 @@ import {
 
 export const description = "A basic bar chart showing monthly sales"
 
-// Unique sales data for a coffee shop
+// Default data for fallback
 const chartData = [
   { month: "January", sales: 4200 },
   { month: "February", sales: 3800 },
@@ -25,23 +24,23 @@ const chartData = [
 const chartConfig = {
   sales: {
     label: "Sales ($)",
-    color: "#f97316", // orange-500 - works in both themes
+    color: "#f97316", // orange-500
   },
 } satisfies ChartConfig
 
-interface ChartBarDefaultProps {
+interface ChartBarDefaultPureProps {
   data?: any[]
   config?: any
+  className?: string
 }
 
-// Internal chart component
-function ChartBarDefaultInternal({ data = chartData, config = chartConfig }: ChartBarDefaultProps) {
+export function ChartBarDefaultPure({ data = chartData, config = chartConfig, className = "aspect-auto h-[250px] w-full" }: ChartBarDefaultPureProps) {
   // Dynamically detect the category key (first string field) and value key (first numeric field)
   const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'month' : 'month'
   const valueKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'number') || 'sales' : 'sales'
   
   return (
-    <ChartContainer config={config}>
+    <ChartContainer config={config} className={className}>
       <BarChart accessibilityLayer data={data}>
         <CartesianGrid vertical={false} />
         <XAxis
@@ -61,12 +60,5 @@ function ChartBarDefaultInternal({ data = chartData, config = chartConfig }: Cha
   )
 }
 
-// Export dynamic component with SSR disabled to prevent hydration issues
-export const ChartBarDefault = dynamic(() => Promise.resolve(ChartBarDefaultInternal), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[250px] w-full flex items-center justify-center text-muted-foreground">
-      Loading chart...
-    </div>
-  ),
-}) 
+// Re-export as ChartBarDefault for backward compatibility
+export { ChartBarDefaultPure as ChartBarDefault } 

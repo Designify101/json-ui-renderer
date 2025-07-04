@@ -132,8 +132,30 @@ export function InteractiveAreaChart({ data: propData, config: propConfig, class
   const chartConfig = propConfig || defaultConfig
 
   // Filter data based on time range
+  // Dynamically detect the date key (first string field that looks like a date) and numeric keys
+  const dateKey = useMemo(() => {
+    if (chartData.length === 0) return 'date'
+    return Object.keys(chartData[0]).find(key => {
+      const value = chartData[0][key]
+      return typeof value === 'string' && (
+        value.match(/^\d{4}-\d{2}-\d{2}/) || // YYYY-MM-DD format
+        value.match(/^\d{1,2}\/\d{1,2}\/\d{4}/) || // MM/DD/YYYY format
+        !isNaN(Date.parse(value)) // any parseable date format
+      )
+    }) || 'date'
+  }, [chartData])
+
+  const numericKeys = useMemo(() => {
+    if (chartData.length === 0) return ['desktop', 'mobile']
+    return Object.keys(chartData[0]).filter(key => typeof chartData[0][key] === 'number')
+  }, [chartData])
+
   const filteredData = useMemo(() => {
-    const now = new Date("2024-06-30") // Use the last date in our dataset as "now"
+    // Try to determine the latest date in the dataset
+    const dates = chartData.map(item => new Date(item[dateKey])).filter(date => !isNaN(date.getTime()))
+    if (dates.length === 0) return chartData // If no valid dates, return all data
+    
+    const now = new Date(Math.max(...dates.map(d => d.getTime()))) // Use the latest date as "now"
     let daysToSubtract = 90
 
     switch (timeRange) {
@@ -154,10 +176,10 @@ export function InteractiveAreaChart({ data: propData, config: propConfig, class
     cutoffDate.setDate(cutoffDate.getDate() - daysToSubtract)
 
     return chartData.filter((item) => {
-      const itemDate = new Date(item.date)
-      return itemDate >= cutoffDate
+      const itemDate = new Date(item[dateKey])
+      return !isNaN(itemDate.getTime()) && itemDate >= cutoffDate
     })
-  }, [chartData, timeRange])
+  }, [chartData, timeRange, dateKey])
 
   const getTimeRangeLabel = () => {
     switch (timeRange) {
@@ -207,28 +229,30 @@ export function InteractiveAreaChart({ data: propData, config: propConfig, class
         <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
           <AreaChart accessibilityLayer data={filteredData}>
             <defs>
-              <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--chart-1))" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0.1} />
-              </linearGradient>
-              <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--chart-2))" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="hsl(var(--chart-2))" stopOpacity={0.1} />
-              </linearGradient>
+              {numericKeys.map((key, index) => (
+                <linearGradient key={key} id={`fill${key}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={`hsl(var(--chart-${index + 1}))`} stopOpacity={0.8} />
+                  <stop offset="95%" stopColor={`hsl(var(--chart-${index + 1}))`} stopOpacity={0.1} />
+                </linearGradient>
+              ))}
             </defs>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="date"
+              dataKey={dateKey}
               tickLine={false}
               axisLine={false}
               tickMargin={8}
               minTickGap={32}
               tickFormatter={(value) => {
+                // Try to format as date if possible, otherwise return as is
                 const date = new Date(value)
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })
+                if (!isNaN(date.getTime())) {
+                  return date.toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })
+                }
+                return typeof value === 'string' && value.length > 8 ? value.slice(0, 8) : value
               }}
             />
             <ChartTooltip
@@ -237,17 +261,30 @@ export function InteractiveAreaChart({ data: propData, config: propConfig, class
                 <ChartTooltipContent
                   indicator="dot"
                   labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })
+                    // Try to format as date if possible, otherwise return as is
+                    const date = new Date(value)
+                    if (!isNaN(date.getTime())) {
+                      return date.toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })
+                    }
+                    return value
                   }}
                 />
               }
             />
-            <Area dataKey="mobile" type="natural" fill="url(#fillMobile)" stroke="hsl(var(--chart-2))" stackId="a" />
-            <Area dataKey="desktop" type="natural" fill="url(#fillDesktop)" stroke="hsl(var(--chart-1))" stackId="a" />
+            {numericKeys.map((key, index) => (
+              <Area 
+                key={key}
+                dataKey={key} 
+                type="natural" 
+                fill={`url(#fill${key})`} 
+                stroke={`hsl(var(--chart-${index + 1}))`} 
+                stackId="a" 
+              />
+            ))}
             <ChartLegend />
           </AreaChart>
         </ChartContainer>

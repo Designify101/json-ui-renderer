@@ -1,12 +1,14 @@
 "use client"
 
 import * as React from "react"
+import { TrendingUp } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -69,18 +71,30 @@ const chartConfig = {
 interface ChartBarInteractiveProps {
   data?: any[]
   config?: any
+  footer?: {
+    title?: string
+    subtitle?: string
+  }
 }
 
-export function ChartBarInteractive({ data = chartData, config = chartConfig }: ChartBarInteractiveProps) {
+export function ChartBarInteractive({ data = chartData, config = chartConfig, footer }: ChartBarInteractiveProps) {
+  // Dynamically detect the category key (first string field) and numeric keys
+  const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'date' : 'date'
+  const numericKeys = data.length > 0 ? Object.keys(data[0]).filter(key => typeof data[0][key] === 'number') : ['desktop', 'mobile']
+  
+  // Use first numeric key as default active chart
   const [activeChart, setActiveChart] =
-    React.useState<keyof typeof chartConfig>("desktop")
+    React.useState<string>(numericKeys[0] || "desktop")
 
   const total = React.useMemo(
-    () => ({
-      desktop: data.reduce((acc: number, curr: any) => acc + curr.desktop, 0),
-      mobile: data.reduce((acc: number, curr: any) => acc + curr.mobile, 0),
-    }),
-    [data]
+    () => {
+      const totals: Record<string, number> = {}
+      numericKeys.forEach(key => {
+        totals[key] = data.reduce((acc: number, curr: any) => acc + (curr[key] || 0), 0)
+      })
+      return totals
+    },
+    [data, numericKeys]
   )
 
   return (
@@ -93,20 +107,19 @@ export function ChartBarInteractive({ data = chartData, config = chartConfig }: 
           </CardDescription>
         </div>
         <div className="flex">
-          {["desktop", "mobile"].map((key) => {
-            const chart = key as keyof typeof chartConfig
+          {numericKeys.map((key) => {
             return (
               <button
-                key={chart}
-                data-active={activeChart === chart}
+                key={key}
+                data-active={activeChart === key}
                 className="data-[active=true]:bg-muted/50 relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6"
-                onClick={() => setActiveChart(chart)}
+                onClick={() => setActiveChart(key)}
               >
                 <span className="text-muted-foreground text-xs">
-                  {config[chart].label}
+                  {config[key]?.label || key.charAt(0).toUpperCase() + key.slice(1)}
                 </span>
                 <span className="text-lg leading-none font-bold sm:text-3xl">
-                  {total[key as keyof typeof total].toLocaleString()}
+                  {total[key]?.toLocaleString() || '0'}
                 </span>
               </button>
             )
@@ -128,17 +141,23 @@ export function ChartBarInteractive({ data = chartData, config = chartConfig }: 
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="date"
+              dataKey={categoryKey}
               tickLine={false}
               axisLine={false}
               tickMargin={8}
               minTickGap={32}
               tickFormatter={(value) => {
-                const date = new Date(value)
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })
+                // Try to format as date if it looks like a date, otherwise return as is
+                if (typeof value === 'string' && value.match(/^\d{4}-\d{2}-\d{2}/)) {
+                  const date = new Date(value)
+                  if (!isNaN(date.getTime())) {
+                    return date.toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })
+                  }
+                }
+                return typeof value === 'string' && value.length > 8 ? value.slice(0, 8) : value
               }}
             />
             <ChartTooltip
@@ -147,11 +166,18 @@ export function ChartBarInteractive({ data = chartData, config = chartConfig }: 
                   className="w-[150px]"
                   nameKey="views"
                   labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })
+                    // Try to format as date if it looks like a date, otherwise return as is
+                    if (typeof value === 'string' && value.match(/^\d{4}-\d{2}-\d{2}/)) {
+                      const date = new Date(value)
+                      if (!isNaN(date.getTime())) {
+                        return date.toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })
+                      }
+                    }
+                    return value
                   }}
                 />
               }
@@ -160,6 +186,20 @@ export function ChartBarInteractive({ data = chartData, config = chartConfig }: 
           </BarChart>
         </ChartContainer>
       </CardContent>
+      {footer && (
+        <CardFooter className="flex flex-col items-start gap-2 text-sm text-left">
+          {footer.title && (
+            <div className="flex gap-2 leading-none font-medium text-left">
+              {footer.title} <TrendingUp className="h-4 w-4" />
+            </div>
+          )}
+          {footer.subtitle && (
+            <div className="text-muted-foreground leading-none text-left">
+              {footer.subtitle}
+            </div>
+          )}
+        </CardFooter>
+      )}
     </Card>
   )
 } 
