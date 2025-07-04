@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 
 import {
   Card,
@@ -17,7 +17,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "An interactive bar chart"
+export const description = "An interactive line chart"
 
 const chartData = [
   { date: "2024-04-01", desktop: 222, mobile: 150 },
@@ -119,15 +119,15 @@ const chartConfig = {
   },
   desktop: {
     label: "Desktop",
-    color: "var(--chart-2)",
+    color: "var(--chart-1)",
   },
   mobile: {
     label: "Mobile",
-    color: "var(--chart-1)",
+    color: "var(--chart-2)",
   },
 } satisfies ChartConfig
 
-export function ChartBarInteractive() {
+export function ChartLineInteractive() {
   const [activeChart, setActiveChart] =
     React.useState<keyof typeof chartConfig>("desktop")
 
@@ -140,10 +140,10 @@ export function ChartBarInteractive() {
   )
 
   return (
-    <Card className="py-0">
+    <Card className="py-4 sm:py-0">
       <CardHeader className="flex flex-col items-stretch border-b !p-0 sm:flex-row">
-        <div className="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:!py-0">
-          <CardTitle>Bar Chart - Interactive</CardTitle>
+        <div className="flex flex-1 flex-col justify-center gap-1 px-6 pb-3 sm:pb-0">
+          <CardTitle>Line Chart - Interactive</CardTitle>
           <CardDescription>
             Showing total visitors for the last 3 months
           </CardDescription>
@@ -155,7 +155,7 @@ export function ChartBarInteractive() {
               <button
                 key={chart}
                 data-active={activeChart === chart}
-                className="data-[active=true]:bg-muted/50 relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6"
+                className="data-[active=true]:bg-muted/50 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6"
                 onClick={() => setActiveChart(chart)}
               >
                 <span className="text-muted-foreground text-xs">
@@ -174,7 +174,7 @@ export function ChartBarInteractive() {
           config={chartConfig}
           className="aspect-auto h-[250px] w-full"
         >
-          <BarChart
+          <LineChart
             accessibilityLayer
             data={chartData}
             margin={{
@@ -212,8 +212,14 @@ export function ChartBarInteractive() {
                 />
               }
             />
-            <Bar dataKey={activeChart} fill={`var(--color-${activeChart})`} />
-          </BarChart>
+            <Line
+              dataKey={activeChart}
+              type="monotone"
+              stroke={`var(--color-${activeChart})`}
+              strokeWidth={2}
+              dot={false}
+            />
+          </LineChart>
         </ChartContainer>
       </CardContent>
     </Card>
@@ -221,10 +227,11 @@ export function ChartBarInteractive() {
 }
 
 
+
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 
 import {
   Card,
@@ -241,7 +248,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "A bar chart"
+export const description = "A line chart"
 
 const chartData = [
   { month: "January", desktop: 186 },
@@ -259,115 +266,43 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function ChartBarDefault() {
+export function ChartLineDefault() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart</CardTitle>
+        <CardTitle>Line Chart</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
-    </Card>
-  )
-}
-
-
-"use client"
-
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, XAxis, YAxis } from "recharts"
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
-
-export const description = "A horizontal bar chart"
-
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-]
-
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-1)",
-  },
-} satisfies ChartConfig
-
-export function ChartBarHorizontal() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Bar Chart - Horizontal</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart
+          <LineChart
             accessibilityLayer
             data={chartData}
-            layout="vertical"
             margin={{
-              left: -20,
+              left: 12,
+              right: 12,
             }}
           >
-            <XAxis type="number" dataKey="desktop" hide />
-            <YAxis
+            <CartesianGrid vertical={false} />
+            <XAxis
               dataKey="month"
-              type="category"
               tickLine={false}
-              tickMargin={10}
               axisLine={false}
+              tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={5} />
-          </BarChart>
+            <Line
+              dataKey="desktop"
+              type="natural"
+              stroke="var(--color-desktop)"
+              strokeWidth={2}
+              dot={false}
+            />
+          </LineChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
@@ -383,10 +318,11 @@ export function ChartBarHorizontal() {
 }
 
 
+
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 
 import {
   Card,
@@ -403,15 +339,15 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "A multiple bar chart"
+export const description = "A linear line chart"
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { month: "January", desktop: 186 },
+  { month: "February", desktop: 305 },
+  { month: "March", desktop: 237 },
+  { month: "April", desktop: 73 },
+  { month: "May", desktop: 209 },
+  { month: "June", desktop: 214 },
 ]
 
 const chartConfig = {
@@ -419,37 +355,45 @@ const chartConfig = {
     label: "Desktop",
     color: "var(--chart-1)",
   },
-  mobile: {
-    label: "Mobile",
-    color: "var(--chart-2)",
-  },
 } satisfies ChartConfig
 
-export function ChartBarMultiple() {
+export function ChartLineLinear() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Multiple</CardTitle>
+        <CardTitle>Line Chart - Linear</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              left: 12,
+              right: 12,
+            }}
+          >
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="month"
               tickLine={false}
-              tickMargin={10}
               axisLine={false}
+              tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
+              content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
-          </BarChart>
+            <Line
+              dataKey="desktop"
+              type="linear"
+              stroke="var(--color-desktop)"
+              strokeWidth={2}
+              dot={false}
+            />
+          </LineChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
@@ -469,7 +413,7 @@ export function ChartBarMultiple() {
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 
 import {
   Card,
@@ -482,13 +426,102 @@ import {
 import {
   ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "A stacked bar chart with a legend"
+export const description = "A line chart with step"
+
+const chartData = [
+  { month: "January", desktop: 186 },
+  { month: "February", desktop: 305 },
+  { month: "March", desktop: 237 },
+  { month: "April", desktop: 73 },
+  { month: "May", desktop: 209 },
+  { month: "June", desktop: 214 },
+]
+
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "var(--chart-1)",
+  },
+} satisfies ChartConfig
+
+export function ChartLineStep() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Line Chart - Step</CardTitle>
+        <CardDescription>January - June 2024</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              left: 12,
+              right: 12,
+            }}
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Line
+              dataKey="desktop"
+              type="step"
+              stroke="var(--color-desktop)"
+              strokeWidth={2}
+              dot={false}
+            />
+          </LineChart>
+        </ChartContainer>
+      </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 leading-none font-medium">
+          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+        </div>
+        <div className="text-muted-foreground leading-none">
+          Showing total visitors for the last 6 months
+        </div>
+      </CardFooter>
+    </Card>
+  )
+}
+
+
+
+"use client"
+
+import { TrendingUp } from "lucide-react"
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+
+export const description = "A multiple line chart"
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
@@ -510,47 +543,59 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function ChartBarStacked() {
+export function ChartLineMultiple() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Stacked + Legend</CardTitle>
+        <CardTitle>Line Chart - Multiple</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              left: 12,
+              right: 12,
+            }}
+          >
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="month"
               tickLine={false}
-              tickMargin={10}
               axisLine={false}
+              tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-            <ChartLegend content={<ChartLegendContent />} />
-            <Bar
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <Line
               dataKey="desktop"
-              stackId="a"
-              fill="var(--color-desktop)"
-              radius={[0, 0, 4, 4]}
+              type="monotone"
+              stroke="var(--color-desktop)"
+              strokeWidth={2}
+              dot={false}
             />
-            <Bar
+            <Line
               dataKey="mobile"
-              stackId="a"
-              fill="var(--color-mobile)"
-              radius={[4, 4, 0, 0]}
+              type="monotone"
+              stroke="var(--color-mobile)"
+              strokeWidth={2}
+              dot={false}
             />
-          </BarChart>
+          </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Showing total visitors for the last 6 months
+      <CardFooter>
+        <div className="flex w-full items-start gap-2 text-sm">
+          <div className="grid gap-2">
+            <div className="flex items-center gap-2 leading-none font-medium">
+              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+            </div>
+            <div className="text-muted-foreground flex items-center gap-2 leading-none">
+              Showing total visitors for the last 6 months
+            </div>
+          </div>
         </div>
       </CardFooter>
     </Card>
@@ -560,10 +605,11 @@ export function ChartBarStacked() {
 
 
 
+
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 
 import {
   Card,
@@ -580,98 +626,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "A bar chart with a label"
-
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-]
-
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-1)",
-  },
-} satisfies ChartConfig
-
-export function ChartBarLabel() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Bar Chart - Label</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              top: 20,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8}>
-              <LabelList
-                position="top"
-                offset={12}
-                className="fill-foreground"
-                fontSize={12}
-              />
-            </Bar>
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
-    </Card>
-  )
-}
-
-
-
-"use client"
-
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
-
-export const description = "A bar chart with a custom label"
+export const description = "A line chart with dots"
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
@@ -685,71 +640,56 @@ const chartData = [
 const chartConfig = {
   desktop: {
     label: "Desktop",
-    color: "var(--chart-2)",
+    color: "var(--chart-1)",
   },
   mobile: {
     label: "Mobile",
     color: "var(--chart-2)",
   },
-  label: {
-    color: "var(--background)",
-  },
 } satisfies ChartConfig
 
-export function ChartBarLabelCustom() {
+export function ChartLineDots() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Custom Label</CardTitle>
+        <CardTitle>Line Chart - Dots</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart
+          <LineChart
             accessibilityLayer
             data={chartData}
-            layout="vertical"
             margin={{
-              right: 16,
+              left: 12,
+              right: 12,
             }}
           >
-            <CartesianGrid horizontal={false} />
-            <YAxis
+            <CartesianGrid vertical={false} />
+            <XAxis
               dataKey="month"
-              type="category"
               tickLine={false}
-              tickMargin={10}
               axisLine={false}
+              tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
-              hide
             />
-            <XAxis dataKey="desktop" type="number" hide />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
+              content={<ChartTooltipContent hideLabel />}
             />
-            <Bar
+            <Line
               dataKey="desktop"
-              layout="vertical"
-              fill="var(--color-desktop)"
-              radius={4}
-            >
-              <LabelList
-                dataKey="month"
-                position="insideLeft"
-                offset={8}
-                className="fill-(--color-label)"
-                fontSize={12}
-              />
-              <LabelList
-                dataKey="desktop"
-                position="right"
-                offset={8}
-                className="fill-foreground"
-                fontSize={12}
-              />
-            </Bar>
-          </BarChart>
+              type="natural"
+              stroke="var(--color-desktop)"
+              strokeWidth={2}
+              dot={{
+                fill: "var(--color-desktop)",
+              }}
+              activeDot={{
+                r: 6,
+              }}
+            />
+          </LineChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
@@ -767,10 +707,11 @@ export function ChartBarLabelCustom() {
 
 
 
+
 "use client"
 
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, XAxis, YAxis } from "recharts"
+import { GitCommitVertical, TrendingUp } from "lucide-react"
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 
 import {
   Card,
@@ -787,7 +728,117 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "A mixed bar chart"
+export const description = "A line chart with custom dots"
+
+const chartData = [
+  { month: "January", desktop: 186, mobile: 80 },
+  { month: "February", desktop: 305, mobile: 200 },
+  { month: "March", desktop: 237, mobile: 120 },
+  { month: "April", desktop: 73, mobile: 190 },
+  { month: "May", desktop: 209, mobile: 130 },
+  { month: "June", desktop: 214, mobile: 140 },
+]
+
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "var(--chart-1)",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "var(--chart-2)",
+  },
+} satisfies ChartConfig
+
+export function ChartLineDotsCustom() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Line Chart - Custom Dots</CardTitle>
+        <CardDescription>January - June 2024</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              left: 12,
+              right: 12,
+            }}
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Line
+              dataKey="desktop"
+              type="natural"
+              stroke="var(--color-desktop)"
+              strokeWidth={2}
+              dot={({ cx, cy, payload }) => {
+                const r = 24
+                return (
+                  <GitCommitVertical
+                    key={payload.month}
+                    x={cx - r / 2}
+                    y={cy - r / 2}
+                    width={r}
+                    height={r}
+                    fill="hsl(var(--background))"
+                    stroke="var(--color-desktop)"
+                  />
+                )
+              }}
+            />
+          </LineChart>
+        </ChartContainer>
+      </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 leading-none font-medium">
+          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+        </div>
+        <div className="text-muted-foreground leading-none">
+          Showing total visitors for the last 6 months
+        </div>
+      </CardFooter>
+    </Card>
+  )
+}
+
+
+
+
+
+"use client"
+
+import { TrendingUp } from "lucide-react"
+import { CartesianGrid, Dot, Line, LineChart } from "recharts"
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+
+export const description = "A line chart with dots and colors"
 
 const chartData = [
   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
@@ -800,6 +851,7 @@ const chartData = [
 const chartConfig = {
   visitors: {
     label: "Visitors",
+    color: "var(--chart-2)",
   },
   chrome: {
     label: "Chrome",
@@ -823,40 +875,54 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function ChartBarMixed() {
+export function ChartLineDotsColors() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Mixed</CardTitle>
+        <CardTitle>Line Chart - Dots Colors</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart
+          <LineChart
             accessibilityLayer
             data={chartData}
-            layout="vertical"
             margin={{
-              left: 0,
+              top: 24,
+              left: 24,
+              right: 24,
             }}
           >
-            <YAxis
-              dataKey="browser"
-              type="category"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) =>
-                chartConfig[value as keyof typeof chartConfig]?.label
-              }
-            />
-            <XAxis dataKey="visitors" type="number" hide />
+            <CartesianGrid vertical={false} />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              content={
+                <ChartTooltipContent
+                  indicator="line"
+                  nameKey="visitors"
+                  hideLabel
+                />
+              }
             />
-            <Bar dataKey="visitors" layout="vertical" radius={5} />
-          </BarChart>
+            <Line
+              dataKey="visitors"
+              type="natural"
+              stroke="var(--color-visitors)"
+              strokeWidth={2}
+              dot={({ payload, ...props }) => {
+                return (
+                  <Dot
+                    key={payload.browser}
+                    r={5}
+                    cx={props.cx}
+                    cy={props.cy}
+                    fill={payload.fill}
+                    stroke={payload.fill}
+                  />
+                )
+              }}
+            />
+          </LineChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
@@ -877,7 +943,7 @@ export function ChartBarMixed() {
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, Rectangle, XAxis } from "recharts"
+import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts"
 
 import {
   Card,
@@ -894,12 +960,120 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "A bar chart with an active bar"
+export const description = "A line chart with a label"
 
 const chartData = [
-  { browser: "chrome", visitors: 187, fill: "var(--color-chrome)" },
+  { month: "January", desktop: 186, mobile: 80 },
+  { month: "February", desktop: 305, mobile: 200 },
+  { month: "March", desktop: 237, mobile: 120 },
+  { month: "April", desktop: 73, mobile: 190 },
+  { month: "May", desktop: 209, mobile: 130 },
+  { month: "June", desktop: 214, mobile: 140 },
+]
+
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "var(--chart-1)",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "var(--chart-2)",
+  },
+} satisfies ChartConfig
+
+export function ChartLineLabel() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Line Chart - Label</CardTitle>
+        <CardDescription>January - June 2024</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              top: 20,
+              left: 12,
+              right: 12,
+            }}
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="line" />}
+            />
+            <Line
+              dataKey="desktop"
+              type="natural"
+              stroke="var(--color-desktop)"
+              strokeWidth={2}
+              dot={{
+                fill: "var(--color-desktop)",
+              }}
+              activeDot={{
+                r: 6,
+              }}
+            >
+              <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={12}
+              />
+            </Line>
+          </LineChart>
+        </ChartContainer>
+      </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 leading-none font-medium">
+          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+        </div>
+        <div className="text-muted-foreground leading-none">
+          Showing total visitors for the last 6 months
+        </div>
+      </CardFooter>
+    </Card>
+  )
+}
+
+
+
+"use client"
+
+import { TrendingUp } from "lucide-react"
+import { CartesianGrid, LabelList, Line, LineChart } from "recharts"
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+
+export const description = "A line chart with a custom label"
+
+const chartData = [
+  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 275, fill: "var(--color-firefox)" },
+  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
   { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
   { browser: "other", visitors: 90, fill: "var(--color-other)" },
 ]
@@ -907,6 +1081,7 @@ const chartData = [
 const chartConfig = {
   visitors: {
     label: "Visitors",
+    color: "var(--chart-2)",
   },
   chrome: {
     label: "Chrome",
@@ -930,48 +1105,59 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function ChartBarActive() {
+export function ChartLineLabelCustom() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Active</CardTitle>
+        <CardTitle>Line Chart - Custom Label</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              top: 24,
+              left: 24,
+              right: 24,
+            }}
+          >
             <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="browser"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) =>
-                chartConfig[value as keyof typeof chartConfig]?.label
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent
+                  indicator="line"
+                  nameKey="visitors"
+                  hideLabel
+                />
               }
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Bar
+            <Line
               dataKey="visitors"
+              type="natural"
+              stroke="var(--color-visitors)"
               strokeWidth={2}
-              radius={8}
-              activeIndex={2}
-              activeBar={({ ...props }) => {
-                return (
-                  <Rectangle
-                    {...props}
-                    fillOpacity={0.8}
-                    stroke={props.payload.fill}
-                    strokeDasharray={4}
-                    strokeDashoffset={4}
-                  />
-                )
+              dot={{
+                fill: "var(--color-visitors)",
               }}
-            />
-          </BarChart>
+              activeDot={{
+                r: 6,
+              }}
+            >
+              <LabelList
+                position="top"
+                offset={12}
+                className="fill-foreground"
+                fontSize={12}
+                dataKey="browser"
+                formatter={(value: keyof typeof chartConfig) =>
+                  chartConfig[value]?.label
+                }
+              />
+            </Line>
+          </LineChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
@@ -987,79 +1173,3 @@ export function ChartBarActive() {
 }
 
 
-
-"use client"
-
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, Cell, LabelList } from "recharts"
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
-
-export const description = "A bar chart with negative values"
-
-const chartData = [
-  { month: "January", visitors: 186 },
-  { month: "February", visitors: 205 },
-  { month: "March", visitors: -207 },
-  { month: "April", visitors: 173 },
-  { month: "May", visitors: -209 },
-  { month: "June", visitors: 214 },
-]
-
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-} satisfies ChartConfig
-
-export function ChartBarNegative() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Bar Chart - Negative</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel hideIndicator />}
-            />
-            <Bar dataKey="visitors">
-              <LabelList position="top" dataKey="month" fillOpacity={1} />
-              {chartData.map((item) => (
-                <Cell
-                  key={item.month}
-                  fill={item.visitors > 0 ? "var(--chart-1)" : "var(--chart-2)"}
-                />
-              ))}
-            </Bar>
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
-    </Card>
-  )
-}

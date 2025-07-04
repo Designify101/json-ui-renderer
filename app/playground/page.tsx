@@ -178,6 +178,7 @@ Example structure:
 }`}
                   className="w-full h-96 p-4 font-mono text-sm border-0 resize-none focus:outline-none focus:ring-0 bg-background text-foreground"
                   spellCheck={false}
+                  suppressHydrationWarning
                 />
               </CardContent>
             </Card>

@@ -37,6 +37,16 @@ import {
   barChartServerTemplate,
   barChartSocialTemplate,
 } from "@/lib/bar-chart-templates"
+import {
+  lineChartInteractiveTemplate,
+  lineChartDefaultTemplate,
+  lineChartMultipleTemplate,
+  lineChartStepTemplate,
+  lineChartDotsTemplate,
+  lineChartFinancialTemplate,
+  lineChartHealthTemplate,
+  lineChartEducationTemplate,
+} from "@/lib/line-chart-templates"
 
 export default function HomePage() {
   return (
@@ -47,13 +57,13 @@ export default function HomePage() {
           <h1 className="text-5xl font-bold text-foreground mb-6">JSON Render Engine</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
             Transform JSON into beautiful UI components with SVG support, CSS animations, and Framer Motion. Each
-            component shows its exact JSON structure for easy replication and customization. Now with full dark/light
-            theme support and comprehensive chart library!
+            component shows its exact JSON structure for easy replication and customization. Now with comprehensive 
+            chart library including area, bar, and line charts!
           </p>
           <div className="flex items-center justify-center gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span>35+ Component Templates</span>
+              <span>43+ Component Templates</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
@@ -283,6 +293,113 @@ export default function HomePage() {
                   <li>• Real-world scenarios</li>
                   <li>• Different industries</li>
                   <li>• Varied time periods</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* NEW LINE CHARTS SECTION */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-semibold text-foreground mb-4">Line Chart Collection</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Professional line chart variations showcasing different data visualization patterns. From interactive analytics 
+              to healthcare monitoring, each chart demonstrates specialized use cases with clean, modern designs.
+            </p>
+          </div>
+
+          {/* Interactive Line Chart - Featured */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-semibold text-foreground mb-6 text-center">Interactive Line Chart - Website Analytics</h3>
+            <div className="flex justify-center">
+              <RenderEngine layout={lineChartInteractiveTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+          </div>
+
+          {/* Grid of Line Charts */}
+          <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Basic Line Chart</h4>
+              <p className="text-sm text-muted-foreground mb-4">Monthly revenue growth</p>
+              <RenderEngine layout={lineChartDefaultTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Multiple Lines</h4>
+              <p className="text-sm text-muted-foreground mb-4">Performance metrics comparison</p>
+              <RenderEngine layout={lineChartMultipleTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Step Line Chart</h4>
+              <p className="text-sm text-muted-foreground mb-4">Process stage progression</p>
+              <RenderEngine layout={lineChartStepTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Line Chart with Dots</h4>
+              <p className="text-sm text-muted-foreground mb-4">User engagement analytics</p>
+              <RenderEngine layout={lineChartDotsTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Financial Analysis</h4>
+              <p className="text-sm text-muted-foreground mb-4">Stock performance tracking</p>
+              <RenderEngine layout={lineChartFinancialTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Health Metrics</h4>
+              <p className="text-sm text-muted-foreground mb-4">Vital signs monitoring</p>
+              <RenderEngine layout={lineChartHealthTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">E-learning Progress</h4>
+              <p className="text-sm text-muted-foreground mb-4">Student learning analytics</p>
+              <RenderEngine layout={lineChartEducationTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+          </div>
+
+          {/* Technical Features */}
+          <div className="bg-card rounded-lg border border-border p-6 mb-8">
+            <h3 className="text-xl font-semibold text-card-foreground mb-4">Line Chart Features</h3>
+            <div className="grid md:grid-cols-4 gap-6">
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">📈 Chart Types</h4>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Natural curves</li>
+                  <li>• Linear connections</li>
+                  <li>• Step interpolation</li>
+                  <li>• Data point markers</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">🎯 Use Cases</h4>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Trend analysis</li>
+                  <li>• Time series data</li>
+                  <li>• Performance tracking</li>
+                  <li>• Health monitoring</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">⚙️ Interactive Features</h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  <li>• Toggle controls</li>
+                  <li>• Hover tooltips</li>
+                  <li>• Dynamic data binding</li>
+                  <li>• Responsive design</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">🎨 Styling</h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  <li>• Clean aesthetics</li>
+                  <li>• Professional colors</li>
+                  <li>• Theme adaptation</li>
+                  <li>• Consistent spacing</li>
                 </ul>
               </div>
             </div>

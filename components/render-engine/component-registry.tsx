@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 // Import Recharts components for charts
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts"
+import { Area, AreaChart, Bar, BarChart, Line, LineChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts"
 
 // Import Chart components
 import {
@@ -39,6 +39,13 @@ import { ChartBarStacked } from "@/components/charts/chart-bar-stacked"
 import { ChartBarNegative } from "@/components/charts/chart-bar-negative"
 import { ChartBarInteractiveWrapper } from '@/components/charts/chart-bar-interactive-wrapper'
 
+// Import line chart components
+import { ChartLineDefault } from "@/components/charts/chart-line-default"
+import { ChartLineMultiple } from "@/components/charts/chart-line-multiple"
+import { ChartLineInteractive } from "@/components/charts/chart-line-interactive"
+import { ChartLineDots } from "@/components/charts/chart-line-dots"
+import { ChartLineStep } from "@/components/charts/chart-line-step"
+
 console.log("📚 ComponentRegistry: Initializing component registry")
 
 // Component Registry - Maps component names to actual components
@@ -65,6 +72,8 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
   Area: Area,
   BarChart: BarChart,
   Bar: Bar,
+  LineChart: LineChart,
+  Line: Line,
   CartesianGrid: CartesianGrid,
   XAxis: XAxis,
   YAxis: YAxis,
@@ -99,6 +108,13 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
   ChartBarStacked: ChartBarStacked,
   ChartBarNegative: ChartBarNegative,
   ChartBarInteractiveWrapper: ChartBarInteractiveWrapper,
+
+  // Line Chart Components
+  ChartLineDefault: ChartLineDefault,
+  ChartLineMultiple: ChartLineMultiple,
+  ChartLineInteractive: ChartLineInteractive,
+  ChartLineDots: ChartLineDots,
+  ChartLineStep: ChartLineStep,
 }
 
 console.log("📚 ComponentRegistry: Registry created with components:", Object.keys(componentRegistry))
@@ -165,6 +181,28 @@ export const componentPropSchemas: Record<string, any> = {
     data: "any",
     config: "any",
   },
+  // Line Chart Components
+  ChartLineDefault: {
+    data: "any",
+    config: "any",
+  },
+  ChartLineMultiple: {
+    data: "any",
+    config: "any",
+  },
+  ChartLineInteractive: {
+    data: "any",
+    config: "any",
+    activeChart: "string",
+  },
+  ChartLineDots: {
+    data: "any",
+    config: "any",
+  },
+  ChartLineStep: {
+    data: "any",
+    config: "any",
+  },
   // Chart Components
   ChartContainer: {
     config: "any",
@@ -191,6 +229,19 @@ export const componentPropSchemas: Record<string, any> = {
   Bar: {
     dataKey: "string",
     fill: "string",
+  },
+  LineChart: {
+    data: "any",
+    accessibilityLayer: "boolean",
+    margin: "any",
+  },
+  Line: {
+    dataKey: "string",
+    type: ["natural", "linear", "step", "monotone"],
+    stroke: "string",
+    strokeWidth: "number",
+    dot: "any",
+    activeDot: "any",
   },
   CartesianGrid: {
     vertical: "boolean",
