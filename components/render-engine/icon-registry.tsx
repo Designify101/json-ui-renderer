@@ -41,6 +41,7 @@ export function Icon({ name, size = 16, color, className = "", style = {} }: Ico
   }
 
   const iconMap: Record<string, React.ComponentType<any>> = {
+    // Kebab-case naming (preferred for consistency)
     "trending-up": TrendingUp,
     "trending-down": TrendingDown,
     user: User,
@@ -58,6 +59,25 @@ export function Icon({ name, size = 16, color, className = "", style = {} }: Ico
     layers: Layers,
     layout: Layout,
     code: Code,
+    
+    // PascalCase aliases for backward compatibility
+    TrendingUp: TrendingUp,
+    TrendingDown: TrendingDown,
+    User: User,
+    Package: Package,
+    Briefcase: Briefcase,
+    ArrowUpRight: ArrowUpRight,
+    Minus: Minus,
+    Leaf: Leaf,
+    Sparkles: Sparkles,
+    HeartHandshake: HeartHandshake,
+    Folder: Folder,
+    Database: Database,
+    FileText: FileText,
+    Circle: Circle,
+    Layers: Layers,
+    Layout: Layout,
+    Code: Code,
   }
 
   console.log("🎨 Icon: Available icons:", Object.keys(iconMap))

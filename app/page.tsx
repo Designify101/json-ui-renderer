@@ -26,6 +26,17 @@ import {
   areaChartGradientTemplate,
   areaChartAxesTemplate,
 } from "@/lib/area-chart-templates"
+import {
+  barChartInteractiveTemplate,
+  barChartDefaultTemplate,
+  barChartHorizontalTemplate,
+  barChartMultipleTemplate,
+  barChartStackedTemplate,
+  barChartNegativeTemplate,
+  barChartEcommerceTemplate,
+  barChartServerTemplate,
+  barChartSocialTemplate,
+} from "@/lib/bar-chart-templates"
 
 export default function HomePage() {
   return (
@@ -42,7 +53,7 @@ export default function HomePage() {
           <div className="flex items-center justify-center gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span>25+ Component Templates</span>
+              <span>35+ Component Templates</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
@@ -159,6 +170,119 @@ export default function HomePage() {
                   <li>• CSS custom properties</li>
                   <li>• Consistent colors</li>
                   <li>• Proper contrast</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* NEW BAR CHARTS SECTION */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-semibold text-foreground mb-4">Bar Chart Collection</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Comprehensive collection of bar chart variations with unique datasets for each chart type. From interactive 
+              toggles to financial analytics, each chart demonstrates different use cases and styling approaches.
+            </p>
+          </div>
+
+          {/* Interactive Bar Chart - Featured */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-semibold text-foreground mb-6 text-center">Interactive Bar Chart - Website Analytics</h3>
+            <div className="flex justify-center">
+              <RenderEngine layout={barChartInteractiveTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+          </div>
+
+          {/* Grid of Bar Charts - Core Types */}
+          <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Basic Bar Chart</h4>
+              <p className="text-sm text-muted-foreground mb-4">Coffee shop monthly sales</p>
+              <RenderEngine layout={barChartDefaultTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Horizontal Bar Chart</h4>
+              <p className="text-sm text-muted-foreground mb-4">Programming language popularity</p>
+              <RenderEngine layout={barChartHorizontalTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Multiple Bar Chart</h4>
+              <p className="text-sm text-muted-foreground mb-4">Online vs in-store sales</p>
+              <RenderEngine layout={barChartMultipleTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Stacked Bar Chart</h4>
+              <p className="text-sm text-muted-foreground mb-4">Team productivity metrics</p>
+              <RenderEngine layout={barChartStackedTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Negative Values Chart</h4>
+              <p className="text-sm text-muted-foreground mb-4">Quarterly profit/loss analysis</p>
+              <RenderEngine layout={barChartNegativeTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">E-commerce Analytics</h4>
+              <p className="text-sm text-muted-foreground mb-4">Product category performance</p>
+              <RenderEngine layout={barChartEcommerceTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Server Performance</h4>
+              <p className="text-sm text-muted-foreground mb-4">Resource utilization metrics</p>
+              <RenderEngine layout={barChartServerTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Social Media Engagement</h4>
+              <p className="text-sm text-muted-foreground mb-4">Platform performance comparison</p>
+              <RenderEngine layout={barChartSocialTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+          </div>
+
+          {/* Technical Features */}
+          <div className="bg-card rounded-lg border border-border p-6 mb-8">
+            <h3 className="text-xl font-semibold text-card-foreground mb-4">Bar Chart Features</h3>
+            <div className="grid md:grid-cols-4 gap-6">
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">📊 Chart Types</h4>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Vertical & Horizontal</li>
+                  <li>• Multiple datasets</li>
+                  <li>• Stacked variations</li>
+                  <li>• Negative values</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">🎨 Visual Features</h4>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Interactive toggles</li>
+                  <li>• Custom tooltips</li>
+                  <li>• Dynamic colors</li>
+                  <li>• Rounded corners</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">💼 Use Cases</h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  <li>• Sales analytics</li>
+                  <li>• Performance metrics</li>
+                  <li>• Financial reporting</li>
+                  <li>• Resource monitoring</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">📊 Data Variety</h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  <li>• Unique datasets</li>
+                  <li>• Real-world scenarios</li>
+                  <li>• Different industries</li>
+                  <li>• Varied time periods</li>
                 </ul>
               </div>
             </div>

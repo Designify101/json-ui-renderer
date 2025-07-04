@@ -248,7 +248,7 @@ export function InteractiveAreaChart({ data: propData, config: propConfig, class
             />
             <Area dataKey="mobile" type="natural" fill="url(#fillMobile)" stroke="hsl(var(--chart-2))" stackId="a" />
             <Area dataKey="desktop" type="natural" fill="url(#fillDesktop)" stroke="hsl(var(--chart-1))" stackId="a" />
-            <ChartLegend content={<ChartLegendContent />} />
+            <ChartLegend />
           </AreaChart>
         </ChartContainer>
       </CardContent>

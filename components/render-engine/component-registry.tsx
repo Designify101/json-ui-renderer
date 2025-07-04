@@ -28,6 +28,14 @@ import { Icon } from "./icon-registry"
 import { CardCarousel } from "@/components/custom/card-carousel"
 import { InteractiveAreaChart } from "@/components/custom/interactive-area-chart"
 
+// Import bar chart components
+import { ChartBarInteractive } from "@/components/charts/chart-bar-interactive"
+import { ChartBarDefault } from "@/components/charts/chart-bar-default"
+import { ChartBarHorizontal } from "@/components/charts/chart-bar-horizontal"
+import { ChartBarMultiple } from "@/components/charts/chart-bar-multiple"
+import { ChartBarStacked } from "@/components/charts/chart-bar-stacked"
+import { ChartBarNegative } from "@/components/charts/chart-bar-negative"
+
 console.log("📚 ComponentRegistry: Initializing component registry")
 
 // Component Registry - Maps component names to actual components
@@ -77,6 +85,14 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
   // Custom Components
   CardCarousel: CardCarousel,
   InteractiveAreaChart: InteractiveAreaChart,
+
+  // Bar Chart Components
+  ChartBarInteractive: ChartBarInteractive,
+  ChartBarDefault: ChartBarDefault,
+  ChartBarHorizontal: ChartBarHorizontal,
+  ChartBarMultiple: ChartBarMultiple,
+  ChartBarStacked: ChartBarStacked,
+  ChartBarNegative: ChartBarNegative,
 }
 
 console.log("📚 ComponentRegistry: Registry created with components:", Object.keys(componentRegistry))
@@ -106,6 +122,31 @@ export const componentPropSchemas: Record<string, any> = {
     // Allow all props for the custom carousel
   },
   InteractiveAreaChart: {
+    data: "any",
+    config: "any",
+  },
+  // Bar Chart Components
+  ChartBarInteractive: {
+    data: "any",
+    config: "any",
+  },
+  ChartBarDefault: {
+    data: "any", 
+    config: "any",
+  },
+  ChartBarHorizontal: {
+    data: "any",
+    config: "any", 
+  },
+  ChartBarMultiple: {
+    data: "any",
+    config: "any",
+  },
+  ChartBarStacked: {
+    data: "any",
+    config: "any",
+  },
+  ChartBarNegative: {
     data: "any",
     config: "any",
   },
