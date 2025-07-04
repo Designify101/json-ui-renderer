@@ -47,6 +47,13 @@ interface ChartBarMultipleProps {
 }
 
 export function ChartBarMultiple({ data = chartData, config = chartConfig }: ChartBarMultipleProps) {
+  // Dynamically detect the category key (first string field) and numeric keys
+  const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'season' : 'season'
+  const numericKeys = data.length > 0 ? Object.keys(data[0]).filter(key => typeof data[0][key] === 'number') : ['online', 'inStore']
+  
+  // Define colors for up to 6 data series
+  const colors = ['#f97316', '#3b82f6', '#06b6d4', '#8b5cf6', '#ec4899', '#10b981']
+  
   return (
     <Card>
       <CardHeader>
@@ -58,7 +65,7 @@ export function ChartBarMultiple({ data = chartData, config = chartConfig }: Cha
           <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="season"
+              dataKey={categoryKey}
               tickLine={false}
               tickMargin={10}
               axisLine={false}
@@ -68,8 +75,14 @@ export function ChartBarMultiple({ data = chartData, config = chartConfig }: Cha
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="online" fill="#f97316" radius={4} />
-            <Bar dataKey="inStore" fill="#3b82f6" radius={4} />
+            {numericKeys.map((key, index) => (
+              <Bar 
+                key={key}
+                dataKey={key} 
+                fill={colors[index % colors.length]} 
+                radius={4} 
+              />
+            ))}
           </BarChart>
         </ChartContainer>
       </CardContent>

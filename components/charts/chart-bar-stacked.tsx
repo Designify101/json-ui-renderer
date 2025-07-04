@@ -53,6 +53,13 @@ interface ChartBarStackedProps {
 }
 
 export function ChartBarStacked({ data = chartData, config = chartConfig }: ChartBarStackedProps) {
+  // Dynamically detect the category key (first string field) and numeric keys
+  const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'team' : 'team'
+  const numericKeys = data.length > 0 ? Object.keys(data[0]).filter(key => typeof data[0][key] === 'number') : ['features', 'bugs', 'documentation']
+  
+  // Define colors for up to 6 data series
+  const colors = ['#f97316', '#3b82f6', '#06b6d4', '#8b5cf6', '#ec4899', '#10b981']
+  
   return (
     <Card>
       <CardHeader>
@@ -64,7 +71,7 @@ export function ChartBarStacked({ data = chartData, config = chartConfig }: Char
           <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="team"
+              dataKey={categoryKey}
               tickLine={false}
               tickMargin={10}
               axisLine={false}
@@ -72,24 +79,15 @@ export function ChartBarStacked({ data = chartData, config = chartConfig }: Char
             />
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
             <ChartLegend />
-            <Bar
-              dataKey="features"
-              stackId="a"
-              fill="#f97316"
-              radius={[0, 0, 4, 4]}
-            />
-            <Bar
-              dataKey="bugs"
-              stackId="a"
-              fill="#3b82f6"
-              radius={[0, 0, 0, 0]}
-            />
-            <Bar
-              dataKey="documentation"
-              stackId="a"
-              fill="#06b6d4"
-              radius={[4, 4, 0, 0]}
-            />
+            {numericKeys.map((key, index) => (
+              <Bar
+                key={key}
+                dataKey={key}
+                stackId="a"
+                fill={colors[index % colors.length]}
+                radius={index === 0 ? [0, 0, 4, 4] : index === numericKeys.length - 1 ? [4, 4, 0, 0] : [0, 0, 0, 0]}
+              />
+            ))}
           </BarChart>
         </ChartContainer>
       </CardContent>

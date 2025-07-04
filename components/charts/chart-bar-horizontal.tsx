@@ -43,6 +43,10 @@ interface ChartBarHorizontalProps {
 }
 
 export function ChartBarHorizontal({ data = chartData, config = chartConfig }: ChartBarHorizontalProps) {
+  // Dynamically detect the category key (first string field) and value key (first numeric field)
+  const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'language' : 'language'
+  const valueKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'number') || 'usage' : 'usage'
+  
   return (
     <Card>
       <CardHeader>
@@ -59,9 +63,9 @@ export function ChartBarHorizontal({ data = chartData, config = chartConfig }: C
               left: -20,
             }}
           >
-            <XAxis type="number" dataKey="usage" hide />
+            <XAxis type="number" dataKey={valueKey} hide />
             <YAxis
-              dataKey="language"
+              dataKey={categoryKey}
               type="category"
               tickLine={false}
               tickMargin={10}
@@ -72,7 +76,7 @@ export function ChartBarHorizontal({ data = chartData, config = chartConfig }: C
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="usage" fill="#06b6d4" radius={5} />
+            <Bar dataKey={valueKey} fill="#06b6d4" radius={5} />
           </BarChart>
         </ChartContainer>
       </CardContent>
