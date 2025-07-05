@@ -25,11 +25,11 @@ const chartData = [
 const chartConfig = {
   desktop: {
     label: "Desktop",
-    color: "var(--chart-1)",
+    color: "#f97316", // orange-500 - works in both themes
   },
   mobile: {
     label: "Mobile",
-    color: "var(--chart-2)",
+    color: "#3b82f6", // blue-500 - works in both themes
   },
 } satisfies ChartConfig
 
@@ -44,11 +44,11 @@ function ChartRadarLinesOnlyInternal({ data = chartData, config = chartConfig }:
   const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'month' : 'month'
   const numericKeys = data.length > 0 ? Object.keys(data[0]).filter(key => typeof data[0][key] === 'number') : ['desktop', 'mobile']
   
-  // Define colors for up to 6 data series - using hsl for better theme compatibility
-  const colors = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))', 'hsl(var(--chart-6))']
+  // Define colors for up to 6 data series
+  const colors = ['#f97316', '#3b82f6', '#06b6d4', '#8b5cf6', '#ec4899', '#10b981']
   
   return (
-    <ChartContainer config={config} className="mx-auto aspect-square max-h-[250px]">
+    <ChartContainer config={config}>
       <RadarChart data={data}>
         <ChartTooltip
           cursor={false}
@@ -62,7 +62,7 @@ function ChartRadarLinesOnlyInternal({ data = chartData, config = chartConfig }:
             dataKey={key}
             fill="none"
             fillOpacity={0}
-            stroke={colors[index % colors.length]}
+            stroke={config[key]?.color || colors[index % colors.length]}
             strokeWidth={3}
             strokeOpacity={0.8}
           />
@@ -76,7 +76,7 @@ function ChartRadarLinesOnlyInternal({ data = chartData, config = chartConfig }:
 export const ChartRadarLinesOnly = dynamic(() => Promise.resolve(ChartRadarLinesOnlyInternal), {
   ssr: false,
   loading: () => (
-    <div className="mx-auto aspect-square max-h-[250px] flex items-center justify-center text-muted-foreground">
+    <div className="h-[250px] w-full flex items-center justify-center text-muted-foreground">
       Loading chart...
     </div>
   ),

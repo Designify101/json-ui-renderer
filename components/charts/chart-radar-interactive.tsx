@@ -73,7 +73,7 @@ const defaultChartData = {
 }
 
 const defaultChartConfig = {
-  score: { label: "Score", color: "var(--chart-1)" },
+  score: { label: "Score", color: "#8b5cf6" }, // purple-500 - works in both themes
   january: { label: "January" },
   february: { label: "February" },
   march: { label: "March" },
@@ -121,58 +121,47 @@ function ChartRadarInteractiveInternal({
     Object.keys(currentData[0]).find(key => typeof currentData[0][key] === 'number') || 'score' : 'score'
   
   return (
-    <div className={`w-full space-y-6 ${className}`}>
-      {/* Header with dropdown - properly spaced */}
-      <div className="space-y-4">
-        <div className="flex items-start justify-between gap-4">
-          <div className="space-y-1 flex-1">
-            <h3 className="text-xl font-semibold tracking-tight">Interactive Radar Chart</h3>
-            <p className="text-sm text-muted-foreground">Monthly performance metrics analysis</p>
-          </div>
-          <Select value={activeMonth} onValueChange={setActiveMonth}>
-            <SelectTrigger className="w-[140px] h-9">
-              <SelectValue placeholder="Select month" />
-            </SelectTrigger>
-            <SelectContent align="end">
-              {months.map((month) => {
-                const configItem = config[month as keyof typeof config]
-                
-                return (
-                  <SelectItem key={month} value={month}>
-                    <div className="flex items-center gap-2 text-sm">
-                      <span
-                        className="flex h-3 w-3 shrink-0 rounded-sm"
-                        style={{ backgroundColor: "hsl(var(--chart-1))" }}
-                      />
-                      {configItem?.label || month.charAt(0).toUpperCase() + month.slice(1)}
-                    </div>
-                  </SelectItem>
-                )
-              })}
-            </SelectContent>
-          </Select>
+    <div className={`w-full space-y-4 ${className}`}>
+      {/* Header with dropdown */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-semibold">Interactive Radar Chart</h3>
+          <p className="text-sm text-muted-foreground">Monthly performance metrics</p>
         </div>
+        <Select value={activeMonth} onValueChange={setActiveMonth}>
+          <SelectTrigger className="w-[130px]">
+            <SelectValue placeholder="Select month" />
+          </SelectTrigger>
+          <SelectContent>
+            {months.map((month) => {
+              const configItem = config[month as keyof typeof config]
+              return (
+                <SelectItem key={month} value={month}>
+                  {configItem?.label || month.charAt(0).toUpperCase() + month.slice(1)}
+                </SelectItem>
+              )
+            })}
+          </SelectContent>
+        </Select>
       </div>
       
-      {/* Chart container with proper spacing */}
-      <div className="w-full">
-        <ChartContainer config={config} className="mx-auto aspect-square max-h-[280px]">
-          <RadarChart data={currentData}>
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <PolarAngleAxis dataKey={categoryKey} />
-            <PolarGrid />
-            <Radar
-              dataKey={valueKey}
-              fill="hsl(var(--chart-1))"
-              fillOpacity={0.6}
-              dot={{
-                r: 4,
-                fillOpacity: 1,
-              }}
-            />
-          </RadarChart>
-        </ChartContainer>
-      </div>
+      {/* Chart */}
+      <ChartContainer config={config}>
+        <RadarChart data={currentData}>
+          <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+          <PolarAngleAxis dataKey={categoryKey} />
+          <PolarGrid />
+          <Radar
+            dataKey={valueKey}
+            fill={config[valueKey]?.color || "#8b5cf6"}
+            fillOpacity={0.6}
+            dot={{
+              r: 4,
+              fillOpacity: 1,
+            }}
+          />
+        </RadarChart>
+      </ChartContainer>
     </div>
   )
 }
@@ -181,7 +170,7 @@ function ChartRadarInteractiveInternal({
 export const ChartRadarInteractive = dynamic(() => Promise.resolve(ChartRadarInteractiveInternal), {
   ssr: false,
   loading: () => (
-    <div className="mx-auto aspect-square max-h-[300px] flex items-center justify-center text-muted-foreground">
+    <div className="h-[320px] w-full flex items-center justify-center text-muted-foreground">
       Loading chart...
     </div>
   ),

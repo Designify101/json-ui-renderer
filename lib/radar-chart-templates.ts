@@ -15,7 +15,7 @@ export const radarChartDefaultTemplate: RenderLayout = {
       { metric: "PWA", score: 214 },
     ],
     chartConfig: {
-      score: { label: "Score", color: "var(--chart-1)" },
+      score: { label: "Score", color: "#f97316" },
     }
   },
   root: {
@@ -71,7 +71,7 @@ export const radarChartDotsTemplate: RenderLayout = {
       { skill: "AWS", level: 214 },
     ],
     chartConfig: {
-      level: { label: "Skill Level", color: "var(--chart-2)" },
+      level: { label: "Skill Level", color: "#3b82f6" },
     }
   },
   root: {
@@ -154,8 +154,8 @@ export const radarChartMultipleTemplate: RenderLayout = {
       { metric: "Leadership", teamA: 214, teamB: 140 },
     ],
     chartConfig: {
-      teamA: { label: "Team Alpha", color: "var(--chart-1)" },
-      teamB: { label: "Team Beta", color: "var(--chart-2)" },
+      teamA: { label: "Team Alpha", color: "#f97316" },
+      teamB: { label: "Team Beta", color: "#3b82f6" },
     }
   },
   root: {
@@ -250,8 +250,8 @@ export const radarChartLegendTemplate: RenderLayout = {
       { feature: "Cost", productA: 214, productB: 140 },
     ],
     chartConfig: {
-      productA: { label: "Product Alpha", color: "var(--chart-3)" },
-      productB: { label: "Product Beta", color: "var(--chart-4)" },
+      productA: { label: "Product Alpha", color: "#06b6d4" },
+      productB: { label: "Product Beta", color: "#8b5cf6" },
     }
   },
   root: {
@@ -334,8 +334,8 @@ export const radarChartLinesOnlyTemplate: RenderLayout = {
       { metric: "Innovation Index", current: 174, target: 204 },
     ],
     chartConfig: {
-      current: { label: "Current Performance", color: "hsl(var(--chart-1))" },
-      target: { label: "Target Goals", color: "hsl(var(--chart-2))" },
+      current: { label: "Current Performance", color: "#f97316" },
+      target: { label: "Target Goals", color: "#3b82f6" },
     }
   },
   root: {
@@ -460,7 +460,7 @@ export const radarChartInteractiveTemplate: RenderLayout = {
       ],
     },
     chartConfig: {
-      score: { label: "Score", color: "var(--chart-1)" },
+      score: { label: "Score", color: "#8b5cf6" },
       january: { label: "January" },
       february: { label: "February" },
       march: { label: "March" },
@@ -542,7 +542,7 @@ export const radarChartHealthTemplate: RenderLayout = {
       { category: "Mental Health", score: 314 },
     ],
     chartConfig: {
-      score: { label: "Fitness Score", color: "var(--chart-1)" },
+      score: { label: "Fitness Score", color: "#10b981" },
     }
   },
   root: {
@@ -625,7 +625,7 @@ export const radarChartEducationTemplate: RenderLayout = {
       { subject: "Technology", progress: 314 },
     ],
     chartConfig: {
-      progress: { label: "Learning Progress (%)", color: "var(--chart-2)" },
+      progress: { label: "Learning Progress (%)", color: "#ec4899" },
     }
   },
   root: {

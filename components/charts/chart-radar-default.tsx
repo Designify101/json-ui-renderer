@@ -25,7 +25,7 @@ const chartData = [
 const chartConfig = {
   desktop: {
     label: "Desktop",
-    color: "var(--chart-1)",
+    color: "#f97316", // orange-500 - works in both themes
   },
 } satisfies ChartConfig
 
@@ -41,14 +41,14 @@ function ChartRadarDefaultInternal({ data = chartData, config = chartConfig }: C
   const valueKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'number') || 'desktop' : 'desktop'
   
   return (
-    <ChartContainer config={config} className="mx-auto aspect-square max-h-[250px]">
+    <ChartContainer config={config}>
       <RadarChart data={data}>
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
         <PolarAngleAxis dataKey={categoryKey} />
         <PolarGrid />
         <Radar
           dataKey={valueKey}
-          fill="hsl(var(--chart-1))"
+          fill={config[valueKey]?.color || "#f97316"}
           fillOpacity={0.6}
         />
       </RadarChart>
@@ -60,7 +60,7 @@ function ChartRadarDefaultInternal({ data = chartData, config = chartConfig }: C
 export const ChartRadarDefault = dynamic(() => Promise.resolve(ChartRadarDefaultInternal), {
   ssr: false,
   loading: () => (
-    <div className="mx-auto aspect-square max-h-[250px] flex items-center justify-center text-muted-foreground">
+    <div className="h-[250px] w-full flex items-center justify-center text-muted-foreground">
       Loading chart...
     </div>
   ),
