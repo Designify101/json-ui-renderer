@@ -56,6 +56,16 @@ import {
   pieChartStackedTemplate,
   pieChartInteractiveTemplate,
 } from "@/lib/pie-chart-templates"
+import {
+  radarChartDefaultTemplate,
+  radarChartDotsTemplate,
+  radarChartMultipleTemplate,
+  radarChartLegendTemplate,
+  radarChartLinesOnlyTemplate,
+  radarChartInteractiveTemplate,
+  radarChartHealthTemplate,
+  radarChartEducationTemplate,
+} from "@/lib/radar-chart-templates"
 
 export default function HomePage() {
   return (
@@ -67,7 +77,7 @@ export default function HomePage() {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
             Transform JSON into beautiful UI components with SVG support, CSS animations, and Framer Motion. Each
             component shows its exact JSON structure for easy replication and customization. Now with comprehensive 
-            chart library including area, bar, line, and pie charts!
+            chart library including area, bar, line, pie, and radar charts!
           </p>
           <div className="flex items-center justify-center gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -510,6 +520,113 @@ export default function HomePage() {
                   <li>• Color harmony</li>
                   <li>• Accessible contrast</li>
                   <li>• Professional styling</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* RADAR CHARTS SECTION */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-semibold text-foreground mb-4">Radar Chart Collection</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Complete collection of radar chart variations perfect for performance metrics, skill assessments, and 
+              multi-dimensional data visualization. Each chart demonstrates different use cases from business analytics to personal development tracking.
+            </p>
+          </div>
+
+          {/* Interactive Radar Chart - Featured */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-semibold text-foreground mb-6 text-center">Interactive Radar Chart - Monthly Assessment</h3>
+            <div className="flex justify-center">
+              <RenderEngine layout={radarChartInteractiveTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+          </div>
+
+          {/* Grid of Radar Charts */}
+          <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Basic Radar Chart</h4>
+              <p className="text-sm text-muted-foreground mb-4">Website performance metrics</p>
+              <RenderEngine layout={radarChartDefaultTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Radar with Dots</h4>
+              <p className="text-sm text-muted-foreground mb-4">Skills assessment with markers</p>
+              <RenderEngine layout={radarChartDotsTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Multiple Series</h4>
+              <p className="text-sm text-muted-foreground mb-4">Team comparison analysis</p>
+              <RenderEngine layout={radarChartMultipleTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Radar with Legend</h4>
+              <p className="text-sm text-muted-foreground mb-4">Product feature comparison</p>
+              <RenderEngine layout={radarChartLegendTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Lines Only</h4>
+              <p className="text-sm text-muted-foreground mb-4">Business metrics analysis</p>
+              <RenderEngine layout={radarChartLinesOnlyTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Health & Fitness</h4>
+              <p className="text-sm text-muted-foreground mb-4">Wellness assessment dashboard</p>
+              <RenderEngine layout={radarChartHealthTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+
+            <div className="text-center">
+              <h4 className="text-lg font-semibold text-foreground mb-4">E-learning Progress</h4>
+              <p className="text-sm text-muted-foreground mb-4">Student learning analytics</p>
+              <RenderEngine layout={radarChartEducationTemplate} showJsonButton={true} isRootElement={true} />
+            </div>
+          </div>
+
+          {/* Technical Features */}
+          <div className="bg-card rounded-lg border border-border p-6 mb-8">
+            <h3 className="text-xl font-semibold text-card-foreground mb-4">Radar Chart Features</h3>
+            <div className="grid md:grid-cols-4 gap-6">
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">🎯 Chart Types</h4>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Filled radar areas</li>
+                  <li>• Outlined polygons</li>
+                  <li>• Multiple data series</li>
+                  <li>• Interactive controls</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">📊 Data Types</h4>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>• Performance metrics</li>
+                  <li>• Skill assessments</li>
+                  <li>• Health tracking</li>
+                  <li>• Educational progress</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">⚙️ Customization</h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  <li>• Dynamic data binding</li>
+                  <li>• Month selectors</li>
+                  <li>• Legend positioning</li>
+                  <li>• Color schemes</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-card-foreground mb-2">🎨 Visual Features</h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  <li>• Dot markers</li>
+                  <li>• Fill opacity control</li>
+                  <li>• Professional styling</li>
+                  <li>• Theme adaptation</li>
                 </ul>
               </div>
             </div>

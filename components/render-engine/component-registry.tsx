@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 // Import Recharts components for charts
-import { Area, AreaChart, Bar, BarChart, Line, LineChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts"
+import { Area, AreaChart, Bar, BarChart, Line, LineChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis } from "recharts"
 
 // Import Chart components
 import {
@@ -55,6 +55,14 @@ import { ChartPieLegend } from "@/components/charts/chart-pie-legend"
 import { ChartPieStacked } from "@/components/charts/chart-pie-stacked"
 import { ChartPieInteractive } from "@/components/charts/chart-pie-interactive"
 
+// Import radar chart components
+import { ChartRadarDefault } from "@/components/charts/chart-radar-default"
+import { ChartRadarDots } from "@/components/charts/chart-radar-dots"
+import { ChartRadarLinesOnly } from "@/components/charts/chart-radar-lines-only"
+import { ChartRadarMultiple } from "@/components/charts/chart-radar-multiple"
+import { ChartRadarLegend } from "@/components/charts/chart-radar-legend"
+import { ChartRadarInteractive } from "@/components/charts/chart-radar-interactive"
+
 console.log("📚 ComponentRegistry: Initializing component registry")
 
 // Component Registry - Maps component names to actual components
@@ -83,6 +91,10 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
   Bar: Bar,
   LineChart: LineChart,
   Line: Line,
+  RadarChart: RadarChart,
+  Radar: Radar,
+  PolarGrid: PolarGrid,
+  PolarAngleAxis: PolarAngleAxis,
   CartesianGrid: CartesianGrid,
   XAxis: XAxis,
   YAxis: YAxis,
@@ -133,6 +145,14 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
   ChartPieLegend: ChartPieLegend,
   ChartPieStacked: ChartPieStacked,
   ChartPieInteractive: ChartPieInteractive,
+
+  // Radar Chart Components
+  ChartRadarDefault: ChartRadarDefault,
+  ChartRadarDots: ChartRadarDots,
+  ChartRadarLinesOnly: ChartRadarLinesOnly,
+  ChartRadarMultiple: ChartRadarMultiple,
+  ChartRadarLegend: ChartRadarLegend,
+  ChartRadarInteractive: ChartRadarInteractive,
 }
 
 console.log("📚 ComponentRegistry: Registry created with components:", Object.keys(componentRegistry))
@@ -262,6 +282,32 @@ export const componentPropSchemas: Record<string, any> = {
     strokeWidth: "number",
     className: "string",
   },
+  // Radar Chart Components
+  ChartRadarDefault: {
+    data: "any",
+    config: "any",
+  },
+  ChartRadarDots: {
+    data: "any",
+    config: "any",
+  },
+  ChartRadarLinesOnly: {
+    data: "any",
+    config: "any",
+  },
+  ChartRadarMultiple: {
+    data: "any",
+    config: "any",
+  },
+  ChartRadarLegend: {
+    data: "any",
+    config: "any",
+  },
+  ChartRadarInteractive: {
+    data: "any",
+    config: "any",
+    className: "string",
+  },
   // Chart Components
   ChartContainer: {
     config: "any",
@@ -301,6 +347,29 @@ export const componentPropSchemas: Record<string, any> = {
     strokeWidth: "number",
     dot: "any",
     activeDot: "any",
+  },
+  RadarChart: {
+    data: "any",
+    margin: "any",
+  },
+  Radar: {
+    dataKey: "string",
+    fill: "string",
+    fillOpacity: "number",
+    stroke: "string",
+    strokeWidth: "number",
+    dot: "any",
+  },
+  PolarGrid: {
+    radialLines: "boolean",
+    polarRadius: "any",
+    strokeWidth: "number",
+    className: "string",
+    gridType: ["polygon", "circle"],
+  },
+  PolarAngleAxis: {
+    dataKey: "string",
+    tick: "any",
   },
   CartesianGrid: {
     vertical: "boolean",
