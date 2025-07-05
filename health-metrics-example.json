@@ -1,0 +1,86 @@
+{
+  "id": "radial-chart-health-metrics",
+  "title": "Health Metrics Dashboard",
+  "description": "Daily health tracking with formatted numbers and configurable labels",
+  "data": {
+    "chartData": [
+      { "metric": "Steps", "value": 12500 }
+    ],
+    "chartConfig": {
+      "value": { "label": "Steps Today" },
+      "steps": { "label": "Steps" }
+    }
+  },
+  "root": {
+    "type": "Card",
+    "props": {
+      "className": "w-full max-w-md mx-auto"
+    },
+    "children": [
+      {
+        "type": "CardHeader",
+        "props": {
+          "className": "text-center pb-2"
+        },
+        "children": [
+          {
+            "type": "CardTitle",
+            "props": {
+              "className": "text-2xl font-bold"
+            },
+            "children": [{ "text": "Health Metrics" }]
+          },
+          {
+            "type": "CardDescription",
+            "children": [{ "text": "Daily health and fitness tracking" }]
+          }
+        ]
+      },
+      {
+        "type": "CardContent",
+        "props": {
+          "className": "flex flex-col items-center space-y-4"
+        },
+        "children": [
+          {
+            "type": "ChartRadialText",
+            "props": {
+              "data": "$data.chartData",
+              "config": "$data.chartConfig",
+              "innerRadius": 60,
+              "outerRadius": 110,
+              "startAngle": 0,
+              "endAngle": 250,
+              "className": "w-full"
+            }
+          },
+          {
+            "type": "div",
+            "props": {
+              "className": "flex items-center gap-2 text-sm text-muted-foreground"
+            },
+            "children": [
+              {
+                "type": "Icon",
+                "props": {
+                  "name": "TrendingUp",
+                  "className": "h-4 w-4"
+                }
+              },
+              { "text": "Great progress this week!" }
+            ]
+          },
+          {
+            "type": "div",
+            "props": {
+              "className": "text-sm text-muted-foreground text-center"
+            },
+            "children": [
+              { "text": "Keep up the healthy lifestyle" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+} 

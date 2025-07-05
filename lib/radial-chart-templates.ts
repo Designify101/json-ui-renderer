@@ -579,7 +579,7 @@ export const radialChartHealthTemplate: RenderLayout = {
       { metric: "Sleep Hours", value: 7.5 },
     ],
     chartConfig: {
-      value: { label: "Value" },
+      value: { label: "Steps Today" },
       steps: { label: "Steps" },
       calories: { label: "Calories" },
       active: { label: "Active Minutes" },

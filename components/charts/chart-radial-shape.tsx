@@ -12,6 +12,7 @@ import {
 
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 import { assignChartColors, createChartCSSVars } from "@/lib/chart-colors"
+import { formatNumber } from "@/lib/utils"
 
 export const description = "A radial chart with a custom shape"
 
@@ -106,7 +107,7 @@ function ChartRadialShapeInternal({
                         y={viewBox.cy}
                         className="fill-foreground text-4xl font-bold"
                       >
-                        {processedData[0] && processedData[0][valueKey] ? processedData[0][valueKey].toLocaleString() : "0"}
+                        {processedData[0] && processedData[0][valueKey] ? formatNumber(processedData[0][valueKey]) : "0"}
                       </tspan>
                       <tspan
                         x={viewBox.cx}

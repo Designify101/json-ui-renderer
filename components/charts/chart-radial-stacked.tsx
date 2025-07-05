@@ -11,6 +11,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { assignChartColors, createChartCSSVars } from "@/lib/chart-colors"
+import { formatNumber } from "@/lib/utils"
 
 export const description = "A radial chart with stacked sections"
 
@@ -112,7 +113,7 @@ function ChartRadialStackedInternal({
                         y={(viewBox.cy || 0) - 16}
                         className="fill-foreground text-2xl font-bold"
                       >
-                        {totalVisitors.toLocaleString()}
+                        {formatNumber(totalVisitors)}
                       </tspan>
                       <tspan
                         x={viewBox.cx}

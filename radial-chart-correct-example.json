@@ -41,7 +41,7 @@
       ]
     },
     "chartConfig": {
-      "value": { "label": "Visitors" },
+      "value": { "label": "Monthly Users" },
       "chrome": { "label": "Chrome", "color": "#3b82f6" },
       "safari": { "label": "Safari", "color": "#10b981" },
       "firefox": { "label": "Firefox", "color": "#f59e0b" },
