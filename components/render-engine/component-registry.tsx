@@ -63,6 +63,15 @@ import { ChartRadarMultiple } from "@/components/charts/chart-radar-multiple"
 import { ChartRadarLegend } from "@/components/charts/chart-radar-legend"
 import { ChartRadarInteractive } from "@/components/charts/chart-radar-interactive"
 
+// Import radial chart components
+import { ChartRadialSimple } from "@/components/charts/chart-radial-simple"
+import { ChartRadialLabel } from "@/components/charts/chart-radial-label"
+import { ChartRadialGrid } from "@/components/charts/chart-radial-grid"
+import { ChartRadialText } from "@/components/charts/chart-radial-text"
+import { ChartRadialShape } from "@/components/charts/chart-radial-shape"
+import { ChartRadialStacked } from "@/components/charts/chart-radial-stacked"
+import { ChartRadialInteractive } from "@/components/charts/chart-radial-interactive"
+
 console.log("📚 ComponentRegistry: Initializing component registry")
 
 // Component Registry - Maps component names to actual components
@@ -153,6 +162,15 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
   ChartRadarMultiple: ChartRadarMultiple,
   ChartRadarLegend: ChartRadarLegend,
   ChartRadarInteractive: ChartRadarInteractive,
+
+  // Radial Chart Components
+  ChartRadialSimple: ChartRadialSimple,
+  ChartRadialLabel: ChartRadialLabel,
+  ChartRadialGrid: ChartRadialGrid,
+  ChartRadialText: ChartRadialText,
+  ChartRadialShape: ChartRadialShape,
+  ChartRadialStacked: ChartRadialStacked,
+  ChartRadialInteractive: ChartRadialInteractive,
 }
 
 console.log("📚 ComponentRegistry: Registry created with components:", Object.keys(componentRegistry))
@@ -306,6 +324,50 @@ export const componentPropSchemas: Record<string, any> = {
   ChartRadarInteractive: {
     data: "any",
     config: "any",
+    className: "string",
+  },
+  // Radial Chart Components
+  ChartRadialSimple: {
+    data: "any",
+    config: "any",
+    className: "string",
+    footer: "any",
+  },
+  ChartRadialLabel: {
+    data: "any",
+    config: "any",
+    className: "string",
+    footer: "any",
+  },
+  ChartRadialGrid: {
+    data: "any",
+    config: "any",
+    className: "string",
+    footer: "any",
+  },
+  ChartRadialText: {
+    data: "any",
+    config: "any",
+    className: "string",
+    footer: "any",
+  },
+  ChartRadialShape: {
+    data: "any",
+    config: "any",
+    className: "string",
+    footer: "any",
+  },
+  ChartRadialStacked: {
+    data: "any",
+    config: "any",
+    className: "string",
+    footer: "any",
+  },
+  ChartRadialInteractive: {
+    data: "any",
+    config: "any",
+    innerRadius: "number",
+    strokeWidth: "number",
     className: "string",
   },
   // Chart Components
