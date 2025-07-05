@@ -17,49 +17,74 @@ export const radialChartSimpleTemplate: RenderLayout = {
   description: "JSON-driven simple radial chart with single dataset",
   data: {
     chartData: [
-      { category: "chrome", value: 1420, color: colorPalette.chrome },
-      { category: "safari", value: 580, color: colorPalette.safari },
-      { category: "firefox", value: 420, color: colorPalette.firefox },
-      { category: "edge", value: 200, color: colorPalette.edge },
-      { category: "opera", value: 100, color: colorPalette.opera },
+      { category: "desktop", value: 186, color: "#3b82f6" },
+      { category: "mobile", value: 305, color: "#10b981" },
+      { category: "tablet", value: 237, color: "#f59e0b" },
+      { category: "other", value: 73, color: "#8b5cf6" },
     ],
     chartConfig: {
-      value: { label: "Visitors" },
-      chrome: { label: "Chrome", color: colorPalette.chrome },
-      safari: { label: "Safari", color: colorPalette.safari },
-      firefox: { label: "Firefox", color: colorPalette.firefox },
-      edge: { label: "Edge", color: colorPalette.edge },
-      opera: { label: "Opera", color: colorPalette.opera },
+      value: { label: "Users" },
+      desktop: { label: "Desktop", color: "#3b82f6" },
+      mobile: { label: "Mobile", color: "#10b981" },
+      tablet: { label: "Tablet", color: "#f59e0b" },
+      other: { label: "Other", color: "#8b5cf6" },
     },
     summaryData: [
-      { label: "Total Visitors", value: "2,720" },
-      { label: "Browser Types", value: "5" },
-      { label: "Market Leader", value: "Chrome" },
+      { label: "Total Users", value: "801" },
+      { label: "Device Types", value: "4" },
+      { label: "Primary Platform", value: "Mobile" },
     ]
   },
   root: {
-    type: "ChartRadialInteractive",
+    type: "Card",
+    props: {
+      className: "flex flex-col"
+    },
+    children: [
+      {
+        type: "CardHeader",
         props: {
-      chartData: "$data.chartData",
-      chartConfig: "$data.chartConfig",
-      
-      title: "Browser Usage Statistics",
-      description: "Current month browser usage breakdown",
-      showMonthSelector: false,
-      
-      showStatistics: false,
-      
-      showSummary: true,
-      summaryTitle: "OVERVIEW",
-      summaryItems: "$data.summaryData",
-      
-      chartHeight: 300,
-      showTooltip: true,
-      dataKey: "value",
-      categoryKey: "category",
-      
-      className: "w-full"
-    }
+          className: "items-center pb-0"
+        },
+        children: [
+          {
+            type: "CardTitle",
+            children: [{ text: "Device Usage Analytics" }]
+          },
+          {
+            type: "CardDescription",
+            children: [{ text: "User device distribution" }]
+          }
+        ]
+      },
+      {
+        type: "CardContent",
+        props: {
+          className: "flex-1 pb-0"
+        },
+        children: [
+          {
+            type: "ChartRadialBase",
+            props: {
+              data: "$data.chartData",
+              config: "$data.chartConfig",
+              dataKey: "value",
+              categoryKey: "category",
+              height: 300,
+              innerRadius: 60,
+              outerRadius: 140,
+              startAngle: 90,
+              endAngle: 450,
+              cornerRadius: 5,
+              tooltipCursor: false,
+              showTooltip: true,
+              colorFallbackEnabled: false,
+              className: "w-full"
+            }
+          }
+        ]
+      }
+    ]
   }
 }
 
@@ -762,30 +787,125 @@ export const radialChartCustomTemplate: RenderLayout = {
     ]
   },
   root: {
-    type: "ChartRadialInteractive",
+    type: "Card",
     props: {
-      chartData: "$data.chartData",
-      chartConfig: "$data.chartConfig",
-      
-      title: "Device Usage Analytics",
-      description: "User device type distribution",
-      showMonthSelector: false,
-      
-      showStatistics: true,
-      statisticsTitle: "DEVICE BREAKDOWN",
-      statisticsItems: "$data.statisticsData",
-      
-      showSummary: true,
-      summaryTitle: "ANALYTICS SUMMARY",
-      summaryItems: "$data.summaryData",
-      
-      chartHeight: 320,
-      showTooltip: true,
-      dataKey: "value",
-      categoryKey: "category",
-      
-      className: "w-full"
+      className: "flex flex-col"
+    },
+    children: [
+      {
+        type: "CardHeader",
+        props: {
+          className: "items-center pb-0"
+        },
+        children: [
+          {
+            type: "CardTitle",
+            children: [{ text: "Device Usage Analytics" }]
+          },
+          {
+            type: "CardDescription",
+            children: [{ text: "User device type distribution" }]
+          }
+        ]
+      },
+      {
+        type: "CardContent",
+        props: {
+          className: "flex-1 pb-0"
+        },
+        children: [
+          {
+            type: "ChartRadialBase",
+            props: {
+              data: "$data.chartData",
+              config: "$data.chartConfig",
+              dataKey: "value",
+              categoryKey: "category",
+              height: 320,
+              innerRadius: 60,
+              outerRadius: 140,
+              startAngle: 90,
+              endAngle: 450,
+              cornerRadius: 5,
+              tooltipCursor: false,
+              showTooltip: true,
+              colorFallbackEnabled: false,
+              className: "w-full"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+
+// Custom Styled Radial Chart Template - Demonstrating configurable properties
+export const radialChartCustomStyledTemplate: RenderLayout = {
+  id: "radial-chart-custom-styled",
+  title: "Custom Styled Radial Chart",
+  description: "JSON-driven radial chart with custom styling and configuration",
+  data: {
+    chartData: [
+      { category: "react", value: 850, color: "#61dafb" },
+      { category: "vue", value: 420, color: "#4fc08d" },
+      { category: "angular", value: 320, color: "#dd1b16" },
+      { category: "svelte", value: 180, color: "#ff3e00" },
+    ],
+    chartConfig: {
+      value: { label: "Developers" },
+      react: { label: "React", color: "#61dafb" },
+      vue: { label: "Vue", color: "#4fc08d" },
+      angular: { label: "Angular", color: "#dd1b16" },
+      svelte: { label: "Svelte", color: "#ff3e00" },
     }
+  },
+  root: {
+    type: "Card",
+    props: {
+      className: "w-full max-w-md"
+    },
+    children: [
+      {
+        type: "CardHeader",
+        props: {
+          className: "text-center"
+        },
+        children: [
+          {
+            type: "CardTitle",
+            children: [{ text: "Framework Popularity" }]
+          },
+          {
+            type: "CardDescription",
+            children: [{ text: "Developer preference survey 2024" }]
+          }
+        ]
+      },
+      {
+        type: "CardContent",
+        children: [
+          {
+            type: "ChartRadialBase",
+            props: {
+              data: "$data.chartData",
+              config: "$data.chartConfig",
+              dataKey: "value",
+              categoryKey: "category",
+              height: 280,
+              innerRadius: 40,
+              outerRadius: 120,
+              startAngle: 0,
+              endAngle: 360,
+              cornerRadius: 10,
+              tooltipCursor: true,
+              showTooltip: true,
+              colorFallbackEnabled: false,
+              className: "w-full"
+            }
+          }
+        ]
+      }
+    ]
   }
 }
 
@@ -794,4 +914,5 @@ export const radialChartTemplates = {
   interactive: radialChartInteractiveTemplate,
   simple: radialChartSimpleTemplate,
   custom: radialChartCustomTemplate,
+  customStyled: radialChartCustomStyledTemplate,
 } 

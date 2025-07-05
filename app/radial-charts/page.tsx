@@ -68,56 +68,56 @@ export default function RadialChartsPage() {
           <h2 className="text-3xl font-semibold text-foreground mb-8 text-center">Chart Variations</h2>
           <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Simple Radial Chart</h3>
-              <p className="text-sm text-muted-foreground mb-4">Basic radial chart with background bars</p>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{radialChartSimpleTemplate.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4">{radialChartSimpleTemplate.description}</p>
               <RenderEngine layout={radialChartSimpleTemplate} showJsonButton={true} isRootElement={true} />
             </div>
 
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Radial with Labels</h3>
-              <p className="text-sm text-muted-foreground mb-4">Chart with data labels on bars</p>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{radialChartLabelTemplate.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4">{radialChartLabelTemplate.description}</p>
               <RenderEngine layout={radialChartLabelTemplate} showJsonButton={true} isRootElement={true} />
             </div>
 
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Radial with Grid</h3>
-              <p className="text-sm text-muted-foreground mb-4">Chart with circular grid lines</p>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{radialChartGridTemplate.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4">{radialChartGridTemplate.description}</p>
               <RenderEngine layout={radialChartGridTemplate} showJsonButton={true} isRootElement={true} />
             </div>
 
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Radial with Text</h3>
-              <p className="text-sm text-muted-foreground mb-4">Chart with center text display</p>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{radialChartTextTemplate.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4">{radialChartTextTemplate.description}</p>
               <RenderEngine layout={radialChartTextTemplate} showJsonButton={true} isRootElement={true} />
             </div>
 
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Custom Shape</h3>
-              <p className="text-sm text-muted-foreground mb-4">Chart with custom angle and shape</p>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{radialChartShapeTemplate.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4">{radialChartShapeTemplate.description}</p>
               <RenderEngine layout={radialChartShapeTemplate} showJsonButton={true} isRootElement={true} />
             </div>
 
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Stacked Radial</h3>
-              <p className="text-sm text-muted-foreground mb-4">Multi-series stacked chart</p>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{radialChartStackedTemplate.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4">{radialChartStackedTemplate.description}</p>
               <RenderEngine layout={radialChartStackedTemplate} showJsonButton={true} isRootElement={true} />
             </div>
 
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Sales Performance</h3>
-              <p className="text-sm text-muted-foreground mb-4">Business metrics visualization</p>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{radialChartSalesTemplate.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4">{radialChartSalesTemplate.description}</p>
               <RenderEngine layout={radialChartSalesTemplate} showJsonButton={true} isRootElement={true} />
             </div>
 
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Health Metrics</h3>
-              <p className="text-sm text-muted-foreground mb-4">Wellness tracking dashboard</p>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{radialHealthTemplate.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4">{radialHealthTemplate.description}</p>
               <RenderEngine layout={radialHealthTemplate} showJsonButton={true} isRootElement={true} />
             </div>
 
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Project Progress</h3>
-              <p className="text-sm text-muted-foreground mb-4">Task completion tracking</p>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{radialChartProjectTemplate.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4">{radialChartProjectTemplate.description}</p>
               <RenderEngine layout={radialChartProjectTemplate} showJsonButton={true} isRootElement={true} />
             </div>
           </div>

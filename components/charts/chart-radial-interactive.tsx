@@ -47,6 +47,18 @@ interface ChartRadialInteractiveProps {
   dataKey?: string
   categoryKey?: string
   
+  // Chart styling configuration
+  innerRadius?: number
+  outerRadius?: number
+  startAngle?: number
+  endAngle?: number
+  cornerRadius?: number
+  tooltipCursor?: boolean
+  defaultColorHue?: number
+  defaultColorSaturation?: number
+  defaultColorLightness?: number
+  colorFallbackEnabled?: boolean
+  
   className?: string
 }
 
@@ -68,6 +80,16 @@ export function ChartRadialInteractive({
   showTooltip = true,
   dataKey = "value",
   categoryKey = "category",
+  innerRadius = 60,
+  outerRadius = 140,
+  startAngle = 90,
+  endAngle = 450,
+  cornerRadius = 5,
+  tooltipCursor = false,
+  defaultColorHue = 0,
+  defaultColorSaturation = 70,
+  defaultColorLightness = 50,
+  colorFallbackEnabled = true,
   className = ""
 }: ChartRadialInteractiveProps) {
   const [selectedMonth, setSelectedMonth] = useState(monthOptions[0]?.value || "")
@@ -96,11 +118,20 @@ export function ChartRadialInteractive({
       return []
     }
 
-      return currentData.map((item: any, index: number) => ({
-      ...item,
-      fill: item.fill || item.color || colorPalette[item[categoryKey]] || `hsl(${index * 60}, 70%, 50%)`
-      }))
-  }, [currentData, categoryKey, colorPalette])
+    return currentData.map((item: any, index: number) => {
+      let fillColor = item.fill || item.color || colorPalette[item[categoryKey]]
+      
+      // Only apply color fallback if enabled and no color is provided
+      if (!fillColor && colorFallbackEnabled) {
+        fillColor = `hsl(${index * defaultColorHue}, ${defaultColorSaturation}%, ${defaultColorLightness}%)`
+      }
+      
+      return {
+        ...item,
+        fill: fillColor
+      }
+    })
+  }, [currentData, categoryKey, colorPalette, defaultColorHue, defaultColorSaturation, defaultColorLightness, colorFallbackEnabled])
 
   // Calculate total and percentages
   const totalValue = useMemo(() => {
@@ -162,15 +193,15 @@ export function ChartRadialInteractive({
             >
                 <RadialBarChart
                   data={chartDataWithPercentages}
-                  innerRadius={60}
-                  outerRadius={140}
-                  startAngle={90}
-                  endAngle={450}
+                  innerRadius={innerRadius}
+                  outerRadius={outerRadius}
+                  startAngle={startAngle}
+                  endAngle={endAngle}
                 >
-                  <RadialBar dataKey={dataKey} cornerRadius={5} />
+                  <RadialBar dataKey={dataKey} cornerRadius={cornerRadius} />
                   {showTooltip && (
                 <ChartTooltip
-                  cursor={false}
+                  cursor={tooltipCursor}
                       content={<ChartTooltipContent />}
                 />
                   )}

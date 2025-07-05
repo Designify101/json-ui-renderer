@@ -26,6 +26,18 @@ interface ChartRadialInteractiveCompleteProps {
   height?: number
   showTooltip?: boolean
   className?: string
+  
+  // Base chart configurable properties
+  innerRadius?: number
+  outerRadius?: number
+  startAngle?: number
+  endAngle?: number
+  cornerRadius?: number
+  tooltipCursor?: boolean
+  defaultColorHue?: number
+  defaultColorSaturation?: number
+  defaultColorLightness?: number
+  colorFallbackEnabled?: boolean
 }
 
 export function ChartRadialInteractiveComplete({
@@ -38,7 +50,17 @@ export function ChartRadialInteractiveComplete({
   categoryKey = "category",
   height = 350,
   showTooltip = true,
-  className = ""
+  className = "",
+  innerRadius,
+  outerRadius,
+  startAngle,
+  endAngle,
+  cornerRadius,
+  tooltipCursor,
+  defaultColorHue,
+  defaultColorSaturation,
+  defaultColorLightness,
+  colorFallbackEnabled
 }: ChartRadialInteractiveCompleteProps) {
   const [selectedMonth, setSelectedMonth] = useState(monthOptions[0]?.value || "")
   const [isMounted, setIsMounted] = useState(false)
@@ -162,6 +184,16 @@ export function ChartRadialInteractiveComplete({
               height={height}
               showTooltip={showTooltip}
               className="w-full max-w-[300px]"
+              innerRadius={innerRadius}
+              outerRadius={outerRadius}
+              startAngle={startAngle}
+              endAngle={endAngle}
+              cornerRadius={cornerRadius}
+              tooltipCursor={tooltipCursor}
+              defaultColorHue={defaultColorHue}
+              defaultColorSaturation={defaultColorSaturation}
+              defaultColorLightness={defaultColorLightness}
+              colorFallbackEnabled={colorFallbackEnabled}
             />
           </div>
           

@@ -21,6 +21,14 @@ interface ChartRadialBaseProps {
   showTooltip?: boolean
   className?: string
   height?: number
+  
+  // New configurable properties
+  cornerRadius?: number
+  tooltipCursor?: boolean
+  defaultColorHue?: number
+  defaultColorSaturation?: number
+  defaultColorLightness?: number
+  colorFallbackEnabled?: boolean
 }
 
 export function ChartRadialBase({
@@ -34,7 +42,15 @@ export function ChartRadialBase({
   categoryKey = "category",
   showTooltip = true,
   className = "",
-  height = 300
+  height = 300,
+  
+  // New configurable properties with defaults
+  cornerRadius = 5,
+  tooltipCursor = false,
+  defaultColorHue = 60,
+  defaultColorSaturation = 70,
+  defaultColorLightness = 50,
+  colorFallbackEnabled = true
 }: ChartRadialBaseProps) {
   const [isMounted, setIsMounted] = useState(false)
 
@@ -48,11 +64,20 @@ export function ChartRadialBase({
       return []
     }
 
-    return data.map((item: any, index: number) => ({
-      ...item,
-      fill: item.fill || item.color || `hsl(${index * 60}, 70%, 50%)`
-    }))
-  }, [data])
+    return data.map((item: any, index: number) => {
+      let fillColor = item.fill || item.color
+      
+      // Only apply color fallback if enabled and no color is provided
+      if (!fillColor && colorFallbackEnabled) {
+        fillColor = `hsl(${index * defaultColorHue}, ${defaultColorSaturation}%, ${defaultColorLightness}%)`
+      }
+      
+      return {
+        ...item,
+        fill: fillColor
+      }
+    })
+  }, [data, defaultColorHue, defaultColorSaturation, defaultColorLightness, colorFallbackEnabled])
 
   // Calculate total and percentages
   const totalValue = useMemo(() => {
@@ -89,11 +114,11 @@ export function ChartRadialBase({
       >
         <RadialBar 
           dataKey={dataKey} 
-          cornerRadius={5} 
+          cornerRadius={cornerRadius} 
         />
         {showTooltip && (
           <ChartTooltip
-            cursor={false}
+            cursor={tooltipCursor}
             content={<ChartTooltipContent />}
           />
         )}

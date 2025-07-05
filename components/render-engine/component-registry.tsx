@@ -370,34 +370,34 @@ export const componentPropSchemas: Record<string, any> = {
     footer: "any",
   },
   ChartRadialInteractive: {
-    // Chart configuration
     chartData: "any",
     chartConfig: "any",
     colorPalette: "any",
-    
-    // UI configuration
     title: "string",
     description: "string",
     showMonthSelector: "boolean",
     monthOptions: "any",
-    
-    // Statistics configuration
     showStatistics: "boolean",
     statisticsTitle: "string",
     statisticsItems: "any",
-    
-    // Summary configuration
     showSummary: "boolean",
     summaryTitle: "string",
     summaryItems: "any",
-    
-    // Chart display configuration
     chartHeight: "number",
     showTooltip: "boolean",
     dataKey: "string",
     categoryKey: "string",
-    
-    className: "string",
+    innerRadius: "number",
+    outerRadius: "number",
+    startAngle: "number",
+    endAngle: "number",
+    cornerRadius: "number",
+    tooltipCursor: "boolean",
+    defaultColorHue: "number",
+    defaultColorSaturation: "number",
+    defaultColorLightness: "number",
+    colorFallbackEnabled: "boolean",
+    className: "string"
   },
   ChartRadialBase: {
     data: "any",
@@ -411,6 +411,12 @@ export const componentPropSchemas: Record<string, any> = {
     showTooltip: "boolean",
     className: "string",
     height: "number",
+    cornerRadius: "number",
+    tooltipCursor: "boolean",
+    defaultColorHue: "number",
+    defaultColorSaturation: "number",
+    defaultColorLightness: "number",
+    colorFallbackEnabled: "boolean"
   },
   ChartRadialInteractiveWrapper: {
     data: "any",
@@ -438,7 +444,17 @@ export const componentPropSchemas: Record<string, any> = {
     categoryKey: "string",
     height: "number",
     showTooltip: "boolean",
-    className: "string"
+    className: "string",
+    innerRadius: "number",
+    outerRadius: "number",
+    startAngle: "number",
+    endAngle: "number",
+    cornerRadius: "number",
+    tooltipCursor: "boolean",
+    defaultColorHue: "number",
+    defaultColorSaturation: "number",
+    defaultColorLightness: "number",
+    colorFallbackEnabled: "boolean"
   },
   // Chart Components
   ChartContainer: {

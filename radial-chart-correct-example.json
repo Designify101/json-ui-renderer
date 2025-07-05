@@ -68,6 +68,13 @@
       "categoryKey": "category",
       "height": 350,
       "showTooltip": true,
+      "innerRadius": 80,
+      "outerRadius": 160,
+      "startAngle": 90,
+      "endAngle": 450,
+      "cornerRadius": 8,
+      "tooltipCursor": false,
+      "colorFallbackEnabled": false,
       "className": "w-full"
     }
   }
