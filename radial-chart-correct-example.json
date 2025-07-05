@@ -1,0 +1,74 @@
+{
+  "id": "radial-chart-interactive",
+  "title": "Interactive Radial Chart - Fully Dynamic",
+  "description": "JSON-driven interactive radial chart with dynamically calculated statistics",
+  "data": {
+    "monthlyData": {
+      "january": [
+        { "category": "chrome", "value": 1420, "color": "#3b82f6" },
+        { "category": "safari", "value": 580, "color": "#10b981" },
+        { "category": "firefox", "value": 420, "color": "#f59e0b" },
+        { "category": "edge", "value": 200, "color": "#8b5cf6" },
+        { "category": "opera", "value": 100, "color": "#ef4444" }
+      ],
+      "february": [
+        { "category": "chrome", "value": 1380, "color": "#3b82f6" },
+        { "category": "safari", "value": 620, "color": "#10b981" },
+        { "category": "firefox", "value": 380, "color": "#f59e0b" },
+        { "category": "edge", "value": 190, "color": "#8b5cf6" },
+        { "category": "opera", "value": 85, "color": "#ef4444" }
+      ],
+      "march": [
+        { "category": "chrome", "value": 1520, "color": "#3b82f6" },
+        { "category": "safari", "value": 600, "color": "#10b981" },
+        { "category": "firefox", "value": 430, "color": "#f59e0b" },
+        { "category": "edge", "value": 210, "color": "#8b5cf6" },
+        { "category": "opera", "value": 115, "color": "#ef4444" }
+      ],
+      "april": [
+        { "category": "chrome", "value": 1290, "color": "#3b82f6" },
+        { "category": "safari", "value": 620, "color": "#10b981" },
+        { "category": "firefox", "value": 380, "color": "#f59e0b" },
+        { "category": "edge", "value": 190, "color": "#8b5cf6" },
+        { "category": "opera", "value": 120, "color": "#ef4444" }
+      ],
+      "may": [
+        { "category": "chrome", "value": 1420, "color": "#3b82f6" },
+        { "category": "safari", "value": 580, "color": "#10b981" },
+        { "category": "firefox", "value": 420, "color": "#f59e0b" },
+        { "category": "edge", "value": 200, "color": "#8b5cf6" },
+        { "category": "opera", "value": 100, "color": "#ef4444" }
+      ]
+    },
+    "chartConfig": {
+      "value": { "label": "Visitors" },
+      "chrome": { "label": "Chrome", "color": "#3b82f6" },
+      "safari": { "label": "Safari", "color": "#10b981" },
+      "firefox": { "label": "Firefox", "color": "#f59e0b" },
+      "edge": { "label": "Edge", "color": "#8b5cf6" },
+      "opera": { "label": "Opera", "color": "#ef4444" }
+    },
+    "monthOptions": [
+      { "value": "january", "label": "January" },
+      { "value": "february", "label": "February" },
+      { "value": "march", "label": "March" },
+      { "value": "april", "label": "April" },
+      { "value": "may", "label": "May" }
+    ]
+  },
+  "root": {
+    "type": "ChartRadialInteractiveComplete",
+    "props": {
+      "monthlyData": "$data.monthlyData",
+      "chartConfig": "$data.chartConfig",
+      "title": "Browser Usage Statistics",
+      "description": "Interactive radial chart with dynamically calculated statistics",
+      "monthOptions": "$data.monthOptions",
+      "dataKey": "value",
+      "categoryKey": "category",
+      "height": 350,
+      "showTooltip": true,
+      "className": "w-full"
+    }
+  }
+} 

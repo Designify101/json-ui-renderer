@@ -71,6 +71,9 @@ import { ChartRadialText } from "@/components/charts/chart-radial-text"
 import { ChartRadialShape } from "@/components/charts/chart-radial-shape"
 import { ChartRadialStacked } from "@/components/charts/chart-radial-stacked"
 import { ChartRadialInteractive } from "@/components/charts/chart-radial-interactive"
+import { ChartRadialBase } from "@/components/charts/chart-radial-base"
+import { ChartRadialInteractiveWrapper } from "@/components/charts/chart-radial-interactive-wrapper"
+import { ChartRadialInteractiveComplete } from "@/components/charts/chart-radial-interactive-complete"
 
 console.log("📚 ComponentRegistry: Initializing component registry")
 
@@ -171,6 +174,9 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
   ChartRadialShape: ChartRadialShape,
   ChartRadialStacked: ChartRadialStacked,
   ChartRadialInteractive: ChartRadialInteractive,
+  ChartRadialBase: ChartRadialBase,
+  ChartRadialInteractiveWrapper: ChartRadialInteractiveWrapper,
+  ChartRadialInteractiveComplete: ChartRadialInteractiveComplete,
 }
 
 console.log("📚 ComponentRegistry: Registry created with components:", Object.keys(componentRegistry))
@@ -364,11 +370,75 @@ export const componentPropSchemas: Record<string, any> = {
     footer: "any",
   },
   ChartRadialInteractive: {
+    // Chart configuration
+    chartData: "any",
+    chartConfig: "any",
+    colorPalette: "any",
+    
+    // UI configuration
+    title: "string",
+    description: "string",
+    showMonthSelector: "boolean",
+    monthOptions: "any",
+    
+    // Statistics configuration
+    showStatistics: "boolean",
+    statisticsTitle: "string",
+    statisticsItems: "any",
+    
+    // Summary configuration
+    showSummary: "boolean",
+    summaryTitle: "string",
+    summaryItems: "any",
+    
+    // Chart display configuration
+    chartHeight: "number",
+    showTooltip: "boolean",
+    dataKey: "string",
+    categoryKey: "string",
+    
+    className: "string",
+  },
+  ChartRadialBase: {
     data: "any",
     config: "any",
     innerRadius: "number",
-    strokeWidth: "number",
+    outerRadius: "number",
+    startAngle: "number",
+    endAngle: "number",
+    dataKey: "string",
+    categoryKey: "string",
+    showTooltip: "boolean",
     className: "string",
+    height: "number",
+  },
+  ChartRadialInteractiveWrapper: {
+    data: "any",
+    config: "any",
+    monthOptions: "any",
+    selectedMonth: "string",
+    onMonthChange: "any",
+    dataKey: "string",
+    categoryKey: "string",
+    innerRadius: "number",
+    outerRadius: "number",
+    startAngle: "number",
+    endAngle: "number",
+    showTooltip: "boolean",
+    className: "string",
+    height: "number",
+  },
+  ChartRadialInteractiveComplete: {
+    monthlyData: "any",
+    chartConfig: "any",
+    title: "string",
+    description: "string",
+    monthOptions: "any",
+    dataKey: "string",
+    categoryKey: "string",
+    height: "number",
+    showTooltip: "boolean",
+    className: "string"
   },
   // Chart Components
   ChartContainer: {
