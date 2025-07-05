@@ -46,6 +46,15 @@ import { ChartLineInteractive } from "@/components/charts/chart-line-interactive
 import { ChartLineDots } from "@/components/charts/chart-line-dots"
 import { ChartLineStep } from "@/components/charts/chart-line-step"
 
+// Import pie chart components
+import { ChartPieSimple } from "@/components/charts/chart-pie-simple"
+import { ChartPieDonut } from "@/components/charts/chart-pie-donut"
+import { ChartPieDonutText } from "@/components/charts/chart-pie-donut-text"
+import { ChartPieLabel } from "@/components/charts/chart-pie-label"
+import { ChartPieLegend } from "@/components/charts/chart-pie-legend"
+import { ChartPieStacked } from "@/components/charts/chart-pie-stacked"
+import { ChartPieInteractive } from "@/components/charts/chart-pie-interactive"
+
 console.log("📚 ComponentRegistry: Initializing component registry")
 
 // Component Registry - Maps component names to actual components
@@ -115,6 +124,15 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
   ChartLineInteractive: ChartLineInteractive,
   ChartLineDots: ChartLineDots,
   ChartLineStep: ChartLineStep,
+
+  // Pie Chart Components
+  ChartPieSimple: ChartPieSimple,
+  ChartPieDonut: ChartPieDonut,
+  ChartPieDonutText: ChartPieDonutText,
+  ChartPieLabel: ChartPieLabel,
+  ChartPieLegend: ChartPieLegend,
+  ChartPieStacked: ChartPieStacked,
+  ChartPieInteractive: ChartPieInteractive,
 }
 
 console.log("📚 ComponentRegistry: Registry created with components:", Object.keys(componentRegistry))
@@ -202,6 +220,47 @@ export const componentPropSchemas: Record<string, any> = {
   ChartLineStep: {
     data: "any",
     config: "any",
+  },
+  // Pie Chart Components
+  ChartPieSimple: {
+    data: "any",
+    config: "any",
+  },
+  ChartPieDonut: {
+    data: "any",
+    config: "any",
+    innerRadius: "number",
+  },
+  ChartPieDonutText: {
+    data: "any",
+    config: "any",
+    innerRadius: "number",
+    centerText: "any",
+  },
+  ChartPieLabel: {
+    data: "any",
+    config: "any",
+    showCustomLabel: "boolean",
+  },
+  ChartPieLegend: {
+    data: "any",
+    config: "any",
+    legendClassName: "string",
+  },
+  ChartPieStacked: {
+    data: "any",
+    config: "any",
+    innerRadius: "number",
+    outerRadius: "number",
+    innerOuterRadius: "number",
+    outerInnerRadius: "number",
+  },
+  ChartPieInteractive: {
+    data: "any",
+    config: "any",
+    innerRadius: "number",
+    strokeWidth: "number",
+    className: "string",
   },
   // Chart Components
   ChartContainer: {
