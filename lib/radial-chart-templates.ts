@@ -1,25 +1,23 @@
-import type { RenderLayout } from "@/types/render-schema"
+import { RenderLayout } from "@/types/render-schema"
 
-// Template for Simple Radial Chart - Browser Usage
+// Simple Radial Chart Template
 export const radialChartSimpleTemplate: RenderLayout = {
   id: "radial-chart-simple",
-  title: "Simple Radial Chart - Browser Usage",
-  description: "Basic radial chart showing browser market share",
+  title: "Simple Radial Chart",
+  description: "Basic radial chart showing data in a circular format",
   data: {
     chartData: [
-      { browser: "chrome", visitors: 275 },
-      { browser: "safari", visitors: 200 },
-      { browser: "firefox", visitors: 187 },
-      { browser: "edge", visitors: 173 },
-      { browser: "other", visitors: 90 },
+      { quarter: "Q1", value: 85 },
+      { quarter: "Q2", value: 92 },
+      { quarter: "Q3", value: 78 },
+      { quarter: "Q4", value: 96 },
     ],
     chartConfig: {
-      visitors: { label: "Visitors" },
-      chrome: { label: "Chrome" },
-      safari: { label: "Safari" },
-      firefox: { label: "Firefox" },
-      edge: { label: "Edge" },
-      other: { label: "Other" },
+      value: { label: "Value %" },
+      Q1: { label: "Q1 2024" },
+      Q2: { label: "Q2 2024" },
+      Q3: { label: "Q3 2024" },
+      Q4: { label: "Q4 2024" },
     }
   },
   root: {
@@ -36,18 +34,18 @@ export const radialChartSimpleTemplate: RenderLayout = {
         children: [
           {
             type: "CardTitle",
-            children: [{ text: "Radial Chart" }]
+            children: [{ text: "Simple Radial Chart" }]
           },
           {
-            type: "CardDescription",
-            children: [{ text: "January - June 2024" }]
+            type: "CardDescription", 
+            children: [{ text: "Showing quarterly performance data" }]
           }
         ]
       },
       {
         type: "CardContent",
         props: {
-          className: "flex-1 pb-0"
+          className: "flex-1 px-2 pb-2"
         },
         children: [
           {
@@ -58,64 +56,27 @@ export const radialChartSimpleTemplate: RenderLayout = {
             }
           }
         ]
-      },
-      {
-        type: "CardFooter",
-        props: {
-          className: "flex-col gap-2 text-sm"
-        },
-        children: [
-          {
-            tag: "div",
-            props: {
-              className: "flex items-center gap-2 leading-none font-medium"
-            },
-            children: [
-              { text: "Trending up by 5.2% this month" },
-              {
-                type: "Icon",
-                props: {
-                  name: "TrendingUp",
-                  className: "h-4 w-4"
-                }
-              }
-            ]
-          },
-          {
-            tag: "div",
-            props: {
-              className: "text-muted-foreground leading-none"
-            },
-            children: [
-              { text: "Showing total visitors for the last 6 months" }
-            ]
-          }
-        ]
       }
     ]
   }
 }
 
-// Template for Radial Chart with Labels - Browser Usage
+// Label Radial Chart Template
 export const radialChartLabelTemplate: RenderLayout = {
   id: "radial-chart-label",
-  title: "Radial Chart with Labels - Browser Usage",
-  description: "Radial chart with labels showing browser market share",
+  title: "Radial Chart with Labels",
+  description: "Radial chart with data labels on bars",
   data: {
     chartData: [
-      { browser: "chrome", visitors: 275 },
-      { browser: "safari", visitors: 200 },
-      { browser: "firefox", visitors: 187 },
-      { browser: "edge", visitors: 173 },
-      { browser: "other", visitors: 90 },
+      { category: "Desktop", value: 186 },
+      { category: "Mobile", value: 305 },
+      { category: "Tablet", value: 237 },
     ],
     chartConfig: {
-      visitors: { label: "Visitors" },
-      chrome: { label: "Chrome" },
-      safari: { label: "Safari" },
-      firefox: { label: "Firefox" },
-      edge: { label: "Edge" },
-      other: { label: "Other" },
+      value: { label: "Value" },
+      desktop: { label: "Desktop" },
+      mobile: { label: "Mobile" },
+      tablet: { label: "Tablet" },
     }
   },
   root: {
@@ -143,7 +104,7 @@ export const radialChartLabelTemplate: RenderLayout = {
       {
         type: "CardContent",
         props: {
-          className: "flex-1 pb-0"
+          className: "flex-1 px-2 pb-2"
         },
         children: [
           {
@@ -154,64 +115,27 @@ export const radialChartLabelTemplate: RenderLayout = {
             }
           }
         ]
-      },
-      {
-        type: "CardFooter",
-        props: {
-          className: "flex-col gap-2 text-sm"
-        },
-        children: [
-          {
-            tag: "div",
-            props: {
-              className: "flex items-center gap-2 leading-none font-medium"
-            },
-            children: [
-              { text: "Trending up by 5.2% this month" },
-              {
-                type: "Icon",
-                props: {
-                  name: "TrendingUp",
-                  className: "h-4 w-4"
-                }
-              }
-            ]
-          },
-          {
-            tag: "div",
-            props: {
-              className: "text-muted-foreground leading-none"
-            },
-            children: [
-              { text: "Showing total visitors for the last 6 months" }
-            ]
-          }
-        ]
       }
     ]
   }
 }
 
-// Template for Radial Chart with Grid - Browser Usage
+// Grid Radial Chart Template
 export const radialChartGridTemplate: RenderLayout = {
   id: "radial-chart-grid",
-  title: "Radial Chart with Grid - Browser Usage",
-  description: "Radial chart with grid lines showing browser market share",
+  title: "Radial Chart with Grid",
+  description: "Radial chart with circular grid lines",
   data: {
     chartData: [
-      { browser: "chrome", visitors: 275 },
-      { browser: "safari", visitors: 200 },
-      { browser: "firefox", visitors: 187 },
-      { browser: "edge", visitors: 173 },
-      { browser: "other", visitors: 90 },
+      { category: "Desktop", value: 186 },
+      { category: "Mobile", value: 305 },
+      { category: "Tablet", value: 237 },
     ],
     chartConfig: {
-      visitors: { label: "Visitors" },
-      chrome: { label: "Chrome" },
-      safari: { label: "Safari" },
-      firefox: { label: "Firefox" },
-      edge: { label: "Edge" },
-      other: { label: "Other" },
+      value: { label: "Value" },
+      desktop: { label: "Desktop" },
+      mobile: { label: "Mobile" },
+      tablet: { label: "Tablet" },
     }
   },
   root: {
@@ -239,7 +163,7 @@ export const radialChartGridTemplate: RenderLayout = {
       {
         type: "CardContent",
         props: {
-          className: "flex-1 pb-0"
+          className: "flex-1 px-2 pb-2"
         },
         children: [
           {
@@ -250,56 +174,27 @@ export const radialChartGridTemplate: RenderLayout = {
             }
           }
         ]
-      },
-      {
-        type: "CardFooter",
-        props: {
-          className: "flex-col gap-2 text-sm"
-        },
-        children: [
-          {
-            tag: "div",
-            props: {
-              className: "flex items-center gap-2 leading-none font-medium"
-            },
-            children: [
-              { text: "Trending up by 5.2% this month" },
-              {
-                type: "Icon",
-                props: {
-                  name: "TrendingUp",
-                  className: "h-4 w-4"
-                }
-              }
-            ]
-          },
-          {
-            tag: "div",
-            props: {
-              className: "text-muted-foreground leading-none"
-            },
-            children: [
-              { text: "Showing total visitors for the last 6 months" }
-            ]
-          }
-        ]
       }
     ]
   }
 }
 
-// Template for Radial Chart with Text - Website Traffic
+// Text Radial Chart Template
 export const radialChartTextTemplate: RenderLayout = {
   id: "radial-chart-text",
-  title: "Radial Chart with Text - Website Traffic",
-  description: "Radial chart with center text showing total visitors",
+  title: "Radial Chart with Text",
+  description: "Radial chart with center text display",
   data: {
     chartData: [
-      { source: "direct", visitors: 1260 },
+      { category: "Desktop", value: 186 },
+      { category: "Mobile", value: 305 },
+      { category: "Tablet", value: 237 },
     ],
     chartConfig: {
-      visitors: { label: "Visitors" },
-      direct: { label: "Direct Traffic" },
+      value: { label: "Value" },
+      desktop: { label: "Desktop" },
+      mobile: { label: "Mobile" },
+      tablet: { label: "Tablet" },
     }
   },
   root: {
@@ -327,7 +222,7 @@ export const radialChartTextTemplate: RenderLayout = {
       {
         type: "CardContent",
         props: {
-          className: "flex-1 pb-0"
+          className: "flex-1 px-2 pb-2"
         },
         children: [
           {
@@ -338,56 +233,27 @@ export const radialChartTextTemplate: RenderLayout = {
             }
           }
         ]
-      },
-      {
-        type: "CardFooter",
-        props: {
-          className: "flex-col gap-2 text-sm"
-        },
-        children: [
-          {
-            tag: "div",
-            props: {
-              className: "flex items-center gap-2 leading-none font-medium"
-            },
-            children: [
-              { text: "Trending up by 5.2% this month" },
-              {
-                type: "Icon",
-                props: {
-                  name: "TrendingUp",
-                  className: "h-4 w-4"
-                }
-              }
-            ]
-          },
-          {
-            tag: "div",
-            props: {
-              className: "text-muted-foreground leading-none"
-            },
-            children: [
-              { text: "Showing total visitors for the last 6 months" }
-            ]
-          }
-        ]
       }
     ]
   }
 }
 
-// Template for Radial Chart with Custom Shape - Performance Metrics
+// Shape Radial Chart Template
 export const radialChartShapeTemplate: RenderLayout = {
   id: "radial-chart-shape",
-  title: "Radial Chart with Custom Shape - Performance Metrics",
-  description: "Radial chart with custom shape showing performance score",
+  title: "Radial Chart - Shape",
+  description: "Radial chart with custom shape/angles",
   data: {
     chartData: [
-      { metric: "performance", score: 850 },
+      { category: "Desktop", value: 186 },
+      { category: "Mobile", value: 305 },
+      { category: "Tablet", value: 237 },
     ],
     chartConfig: {
-      score: { label: "Score" },
-      performance: { label: "Performance" },
+      value: { label: "Value" },
+      desktop: { label: "Desktop" },
+      mobile: { label: "Mobile" },
+      tablet: { label: "Tablet" },
     }
   },
   root: {
@@ -415,7 +281,7 @@ export const radialChartShapeTemplate: RenderLayout = {
       {
         type: "CardContent",
         props: {
-          className: "flex-1 pb-0"
+          className: "flex-1 px-2 pb-2"
         },
         children: [
           {
@@ -426,51 +292,22 @@ export const radialChartShapeTemplate: RenderLayout = {
             }
           }
         ]
-      },
-      {
-        type: "CardFooter",
-        props: {
-          className: "flex-col gap-2 text-sm"
-        },
-        children: [
-          {
-            tag: "div",
-            props: {
-              className: "flex items-center gap-2 leading-none font-medium"
-            },
-            children: [
-              { text: "Trending up by 5.2% this month" },
-              {
-                type: "Icon",
-                props: {
-                  name: "TrendingUp",
-                  className: "h-4 w-4"
-                }
-              }
-            ]
-          },
-          {
-            tag: "div",
-            props: {
-              className: "text-muted-foreground leading-none"
-            },
-            children: [
-              { text: "Showing total visitors for the last 6 months" }
-            ]
-          }
-        ]
       }
     ]
   }
 }
 
-// Template for Stacked Radial Chart - Desktop vs Mobile
+// Stacked Radial Chart Template
 export const radialChartStackedTemplate: RenderLayout = {
   id: "radial-chart-stacked",
-  title: "Stacked Radial Chart - Desktop vs Mobile",
-  description: "Stacked radial chart showing desktop and mobile usage",
+  title: "Stacked Radial Chart",
+  description: "Radial chart with multiple data series",
   data: {
-    chartData: [{ month: "january", desktop: 1260, mobile: 570 }],
+    chartData: [
+      { category: "Desktop", desktop: 186, mobile: 80 },
+      { category: "Mobile", desktop: 305, mobile: 200 },
+      { category: "Tablet", desktop: 237, mobile: 120 },
+    ],
     chartConfig: {
       desktop: { label: "Desktop" },
       mobile: { label: "Mobile" },
@@ -501,7 +338,7 @@ export const radialChartStackedTemplate: RenderLayout = {
       {
         type: "CardContent",
         props: {
-          className: "flex flex-1 items-center pb-0"
+          className: "flex-1 px-2 pb-2"
         },
         children: [
           {
@@ -512,197 +349,44 @@ export const radialChartStackedTemplate: RenderLayout = {
             }
           }
         ]
-      },
-      {
-        type: "CardFooter",
-        props: {
-          className: "flex-col gap-2 text-sm"
-        },
-        children: [
-          {
-            tag: "div",
-            props: {
-              className: "flex items-center gap-2 leading-none font-medium"
-            },
-            children: [
-              { text: "Trending up by 5.2% this month" },
-              {
-                type: "Icon",
-                props: {
-                  name: "TrendingUp",
-                  className: "h-4 w-4"
-                }
-              }
-            ]
-          },
-          {
-            tag: "div",
-            props: {
-              className: "text-muted-foreground leading-none"
-            },
-            children: [
-              { text: "Showing total visitors for the last 6 months" }
-            ]
-          }
-        ]
       }
     ]
   }
 }
 
-// Template for Interactive Radial Chart - Monthly Browser Usage
+// Interactive Radial Chart Template
 export const radialChartInteractiveTemplate: RenderLayout = {
   id: "radial-chart-interactive",
-  title: "Interactive Radial Chart - Monthly Web Traffic Analysis",
-  description: "Interactive radial chart with month selector showing detailed browser usage analytics and performance metrics",
+  title: "Interactive Radial Chart",
+  description: "Interactive radial chart with month selector and statistics",
+  data: {},
+  root: {
+    type: "ChartRadialInteractive"
+  }
+}
+
+// Sales Performance Template
+export const radialChartSalesTemplate: RenderLayout = {
+  id: "radial-chart-sales",
+  title: "Sales Performance",
+  description: "Sales performance metrics with radial visualization",
   data: {
-    chartData: {
-      january: [
-        { category: "chrome", value: 4275 },
-        { category: "safari", value: 2890 },
-        { category: "firefox", value: 1567 },
-        { category: "edge", value: 1230 },
-        { category: "opera", value: 680 },
-        { category: "other", value: 458 },
-      ],
-      february: [
-        { category: "chrome", value: 4520 },
-        { category: "safari", value: 2950 },
-        { category: "firefox", value: 1420 },
-        { category: "edge", value: 1380 },
-        { category: "opera", value: 720 },
-        { category: "other", value: 510 },
-      ],
-      march: [
-        { category: "chrome", value: 4890 },
-        { category: "safari", value: 3120 },
-        { category: "firefox", value: 1595 },
-        { category: "edge", value: 1450 },
-        { category: "opera", value: 785 },
-        { category: "other", value: 460 },
-      ],
-      april: [
-        { category: "chrome", value: 5105 },
-        { category: "safari", value: 3280 },
-        { category: "firefox", value: 1675 },
-        { category: "edge", value: 1520 },
-        { category: "opera", value: 840 },
-        { category: "other", value: 580 },
-      ],
-      may: [
-        { category: "chrome", value: 5340 },
-        { category: "safari", value: 3410 },
-        { category: "firefox", value: 1565 },
-        { category: "edge", value: 1480 },
-        { category: "opera", value: 920 },
-        { category: "other", value: 685 },
-      ],
-      june: [
-        { category: "chrome", value: 5680 },
-        { category: "safari", value: 3580 },
-        { category: "firefox", value: 1455 },
-        { category: "edge", value: 1420 },
-        { category: "opera", value: 1050 },
-        { category: "other", value: 815 },
-      ],
-      july: [
-        { category: "chrome", value: 5920 },
-        { category: "safari", value: 3720 },
-        { category: "firefox", value: 1390 },
-        { category: "edge", value: 1380 },
-        { category: "opera", value: 1120 },
-        { category: "other", value: 870 },
-      ],
-      august: [
-        { category: "chrome", value: 6150 },
-        { category: "safari", value: 3850 },
-        { category: "firefox", value: 1320 },
-        { category: "edge", value: 1340 },
-        { category: "opera", value: 1180 },
-        { category: "other", value: 950 },
-      ],
-      september: [
-        { category: "chrome", value: 6380 },
-        { category: "safari", value: 3920 },
-        { category: "firefox", value: 1285 },
-        { category: "edge", value: 1310 },
-        { category: "opera", value: 1250 },
-        { category: "other", value: 1055 },
-      ],
-      october: [
-        { category: "chrome", value: 6520 },
-        { category: "safari", value: 4080 },
-        { category: "firefox", value: 1240 },
-        { category: "edge", value: 1280 },
-        { category: "opera", value: 1320 },
-        { category: "other", value: 1160 },
-      ],
-      november: [
-        { category: "chrome", value: 6750 },
-        { category: "safari", value: 4180 },
-        { category: "firefox", value: 1195 },
-        { category: "edge", value: 1250 },
-        { category: "opera", value: 1390 },
-        { category: "other", value: 1235 },
-      ],
-      december: [
-        { category: "chrome", value: 6980 },
-        { category: "safari", value: 4320 },
-        { category: "firefox", value: 1150 },
-        { category: "edge", value: 1220 },
-        { category: "opera", value: 1460 },
-        { category: "other", value: 1370 },
-      ],
-    },
+    chartData: [
+      { month: "January", sales: 186000 },
+      { month: "February", sales: 305000 },
+      { month: "March", sales: 237000 },
+      { month: "April", sales: 283000 },
+      { month: "May", sales: 209000 },
+      { month: "June", sales: 264000 },
+    ],
     chartConfig: {
-      value: { label: "Monthly Visitors" },
-      chrome: { label: "Chrome" },
-      safari: { label: "Safari" },
-      firefox: { label: "Firefox" },
-      edge: { label: "Microsoft Edge" },
-      opera: { label: "Opera" },
-      other: { label: "Other Browsers" },
+      sales: { label: "Sales ($)" },
       january: { label: "January" },
       february: { label: "February" },
       march: { label: "March" },
       april: { label: "April" },
       may: { label: "May" },
       june: { label: "June" },
-      july: { label: "July" },
-      august: { label: "August" },
-      september: { label: "September" },
-      october: { label: "October" },
-      november: { label: "November" },
-      december: { label: "December" },
-    }
-  },
-  root: {
-    type: "ChartRadialInteractive",
-    props: {
-      data: "$data.chartData",
-      config: "$data.chartConfig"
-    }
-  }
-}
-
-// Template for Sales Performance Radial Chart
-export const radialChartSalesTemplate: RenderLayout = {
-  id: "radial-chart-sales",
-  title: "Sales Performance - Quarterly Results",
-  description: "Radial chart showing quarterly sales performance against targets",
-  data: {
-    chartData: [
-      { quarter: "Q1", sales: 85 },
-      { quarter: "Q2", sales: 92 },
-      { quarter: "Q3", sales: 78 },
-      { quarter: "Q4", sales: 96 },
-    ],
-    chartConfig: {
-      sales: { label: "Sales Achievement %" },
-      Q1: { label: "Q1 2024" },
-      Q2: { label: "Q2 2024" },
-      Q3: { label: "Q3 2024" },
-      Q4: { label: "Q4 2024" },
     }
   },
   root: {
@@ -723,14 +407,14 @@ export const radialChartSalesTemplate: RenderLayout = {
           },
           {
             type: "CardDescription",
-            children: [{ text: "Quarterly achievement against targets" }]
+            children: [{ text: "January - June 2024" }]
           }
         ]
       },
       {
         type: "CardContent",
         props: {
-          className: "flex-1 pb-0"
+          className: "flex-1 px-2 pb-2"
         },
         children: [
           {
@@ -754,7 +438,7 @@ export const radialChartSalesTemplate: RenderLayout = {
               className: "flex items-center gap-2 leading-none font-medium"
             },
             children: [
-              { text: "Q4 exceeded target by 16%" },
+              { text: "Trending up by 12.5% this quarter" },
               {
                 type: "Icon",
                 props: {
@@ -770,7 +454,7 @@ export const radialChartSalesTemplate: RenderLayout = {
               className: "text-muted-foreground leading-none"
             },
             children: [
-              { text: "Average quarterly performance: 87.75%" }
+              { text: "Showing total sales for the last 6 months" }
             ]
           }
         ]
@@ -779,24 +463,24 @@ export const radialChartSalesTemplate: RenderLayout = {
   }
 }
 
-// Template for Health Metrics Radial Chart
+// Health Metrics Template
 export const radialChartHealthTemplate: RenderLayout = {
   id: "radial-chart-health",
-  title: "Health Metrics - Daily Progress",
-  description: "Radial chart showing daily health goal achievement",
+  title: "Health Metrics",
+  description: "Health and fitness metrics with radial visualization",
   data: {
     chartData: [
-      { metric: "steps", value: 8500 },
-      { metric: "calories", value: 2100 },
-      { metric: "water", value: 1800 },
-      { metric: "sleep", value: 7.5 },
+      { metric: "Steps", value: 12500 },
+      { metric: "Calories", value: 2100 },
+      { metric: "Active Minutes", value: 45 },
+      { metric: "Sleep Hours", value: 7.5 },
     ],
     chartConfig: {
       value: { label: "Value" },
-      steps: { label: "Steps (10k goal)" },
-      calories: { label: "Calories (2500 goal)" },
-      water: { label: "Water (2000ml goal)" },
-      sleep: { label: "Sleep (8h goal)" },
+      steps: { label: "Steps" },
+      calories: { label: "Calories" },
+      active: { label: "Active Minutes" },
+      sleep: { label: "Sleep Hours" },
     }
   },
   root: {
@@ -813,22 +497,22 @@ export const radialChartHealthTemplate: RenderLayout = {
         children: [
           {
             type: "CardTitle",
-            children: [{ text: "Health Progress" }]
+            children: [{ text: "Health Metrics" }]
           },
           {
             type: "CardDescription",
-            children: [{ text: "Daily goal achievement" }]
+            children: [{ text: "Daily health and fitness tracking" }]
           }
         ]
       },
       {
         type: "CardContent",
         props: {
-          className: "flex-1 pb-0"
+          className: "flex-1 px-2 pb-2"
         },
         children: [
           {
-            type: "ChartRadialGrid",
+            type: "ChartRadialText",
             props: {
               data: "$data.chartData",
               config: "$data.chartConfig"
@@ -848,11 +532,11 @@ export const radialChartHealthTemplate: RenderLayout = {
               className: "flex items-center gap-2 leading-none font-medium"
             },
             children: [
-              { text: "Stay hydrated! 200ml remaining" },
+              { text: "Great progress this week!" },
               {
                 type: "Icon",
                 props: {
-                  name: "Sparkles",
+                  name: "TrendingUp",
                   className: "h-4 w-4"
                 }
               }
@@ -864,7 +548,7 @@ export const radialChartHealthTemplate: RenderLayout = {
               className: "text-muted-foreground leading-none"
             },
             children: [
-              { text: "Great progress on all metrics today!" }
+              { text: "Keep up the healthy lifestyle" }
             ]
           }
         ]
@@ -873,23 +557,21 @@ export const radialChartHealthTemplate: RenderLayout = {
   }
 }
 
-// Template for Project Progress Radial Chart
+// Project Progress Template
 export const radialChartProjectTemplate: RenderLayout = {
   id: "radial-chart-project",
-  title: "Project Progress - Development Status",
-  description: "Radial chart showing project completion percentage",
+  title: "Project Progress",
+  description: "Project completion progress with radial visualization",
   data: {
     chartData: [
-      { phase: "planning", progress: 100 },
-      { phase: "design", progress: 85 },
-      { phase: "development", progress: 65 },
-      { phase: "testing", progress: 30 },
-      { phase: "deployment", progress: 0 },
+      { phase: "Planning", completion: 100 },
+      { phase: "Development", completion: 75 },
+      { phase: "Testing", completion: 40 },
+      { phase: "Deployment", completion: 0 },
     ],
     chartConfig: {
-      progress: { label: "Progress %" },
+      completion: { label: "Completion %" },
       planning: { label: "Planning" },
-      design: { label: "Design" },
       development: { label: "Development" },
       testing: { label: "Testing" },
       deployment: { label: "Deployment" },
@@ -913,18 +595,18 @@ export const radialChartProjectTemplate: RenderLayout = {
           },
           {
             type: "CardDescription",
-            children: [{ text: "Development phases completion" }]
+            children: [{ text: "Development lifecycle completion" }]
           }
         ]
       },
       {
         type: "CardContent",
         props: {
-          className: "flex-1 pb-0"
+          className: "flex-1 px-2 pb-2"
         },
         children: [
           {
-            type: "ChartRadialLabel",
+            type: "ChartRadialGrid",
             props: {
               data: "$data.chartData",
               config: "$data.chartConfig"
@@ -944,11 +626,11 @@ export const radialChartProjectTemplate: RenderLayout = {
               className: "flex items-center gap-2 leading-none font-medium"
             },
             children: [
-              { text: "Currently in development phase" },
+              { text: "On track for Q4 delivery" },
               {
                 type: "Icon",
                 props: {
-                  name: "Code",
+                  name: "TrendingUp",
                   className: "h-4 w-4"
                 }
               }
@@ -960,7 +642,7 @@ export const radialChartProjectTemplate: RenderLayout = {
               className: "text-muted-foreground leading-none"
             },
             children: [
-              { text: "56% total project completion" }
+              { text: "Development phase nearing completion" }
             ]
           }
         ]
@@ -969,8 +651,8 @@ export const radialChartProjectTemplate: RenderLayout = {
   }
 }
 
-// All templates exported for use
-export const radialChartTemplates = {
+// Export all templates
+export const radialChartTemplates = [
   radialChartSimpleTemplate,
   radialChartLabelTemplate,
   radialChartGridTemplate,
@@ -981,4 +663,4 @@ export const radialChartTemplates = {
   radialChartSalesTemplate,
   radialChartHealthTemplate,
   radialChartProjectTemplate,
-} 
+] 

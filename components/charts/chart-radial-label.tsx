@@ -72,7 +72,7 @@ function ChartRadialLabelInternal({
     <div data-chart={id} className={`w-full ${className}`} style={chartCSSVars}>
       <ChartContainer
         config={config}
-        className="mx-auto aspect-square max-h-[250px]"
+        className="mx-auto aspect-square max-h-[300px] p-2"
       >
         <RadialBarChart
           data={processedData}

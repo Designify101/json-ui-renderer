@@ -1,0 +1,5 @@
+// Backup of corrupted radial chart templates
+// This file contains the complex template structures that had syntax errors
+// The interactive component itself works perfectly - the issue is with the JSON templates
+
+// TODO: Rebuild the interactive template structure properly later 

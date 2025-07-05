@@ -37,8 +37,8 @@ function ChartRadialStackedInternal({
   data = defaultChartData,
   config = defaultChartConfig,
   className = "",
-  innerRadius = 80,
-  outerRadius = 130,
+  innerRadius = 60,
+  outerRadius = 110,
   startAngle = 0,
   endAngle = 180
 }: ChartRadialStackedProps) {
@@ -88,7 +88,7 @@ function ChartRadialStackedInternal({
     <div data-chart={id} className={`w-full ${className}`} style={chartCSSVars}>
       <ChartContainer
         config={config}
-        className="mx-auto aspect-square w-full max-w-[250px]"
+        className="mx-auto aspect-square w-full max-w-[300px] p-2"
       >
         <RadialBarChart
           data={processedData}
