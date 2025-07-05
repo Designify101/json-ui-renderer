@@ -1,143 +1,98 @@
 "use client"
 
 import * as React from "react"
-import dynamic from "next/dynamic"
-import { Label, Pie, PieChart } from "recharts"
+import { Pie, PieChart } from "recharts"
 
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
+  ChartStyle,
 } from "@/components/ui/chart"
+import { assignChartColors, createChartCSSVars } from "@/lib/chart-colors"
 
 export const description = "A donut chart with text"
-
-// Default donut chart data - browser usage statistics
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
-]
-
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "hsl(var(--chart-1))",
-  },
-  safari: {
-    label: "Safari",
-    color: "hsl(var(--chart-2))",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "hsl(var(--chart-3))",
-  },
-  edge: {
-    label: "Edge",
-    color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
-  },
-} satisfies ChartConfig
 
 interface ChartPieDonutTextProps {
   data?: any[]
   config?: any
   innerRadius?: number
-  centerText?: {
-    label?: string
-    value?: string
-  }
+  className?: string
 }
 
-// Internal chart component
-function ChartPieDonutTextInternal({ 
-  data = chartData, 
-  config = chartConfig, 
+export function ChartPieDonutText({ 
+  data = [],
+  config = {},
   innerRadius = 60,
-  centerText
+  className = ""
 }: ChartPieDonutTextProps) {
-  // Dynamically detect the category key (first string field) and value key (first numeric field)
-  const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'browser' : 'browser'
-  const valueKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'number') || 'visitors' : 'visitors'
+  const id = "pie-donut-text"
   
-  // Calculate total value
-  const totalValue = React.useMemo(() => {
-    return data.reduce((acc, curr) => acc + (curr[valueKey] || 0), 0)
-  }, [data, valueKey])
-
-  // Add fill colors dynamically if not present
-  const processedData = data.map((item, index) => ({
-    ...item,
-    fill: item.fill || config[item[categoryKey]]?.color || `hsl(var(--chart-${(index % 5) + 1}))`
-  }))
-
+  // Use default data if none provided
+  const defaultData = [
+    { browser: "chrome", visitors: 275 },
+    { browser: "safari", visitors: 200 },
+    { browser: "firefox", visitors: 287 },
+    { browser: "edge", visitors: 173 },
+    { browser: "other", visitors: 190 },
+  ]
+  
+  const chartData = data.length > 0 ? data : defaultData
+  
+  // Dynamically detect keys from data
+  const categoryKey = chartData.length > 0 ? 
+    Object.keys(chartData[0]).find(key => typeof chartData[0][key] === 'string') || 'browser' : 'browser'
+  const valueKey = chartData.length > 0 ? 
+    Object.keys(chartData[0]).find(key => typeof chartData[0][key] === 'number') || 'visitors' : 'visitors'
+  
+  // Add dynamic colors to data using shared utility
+  const processedData = assignChartColors(chartData)
+  
+  // Create CSS variables for the current colors using shared utility
+  const chartCSSVars = React.useMemo(() => {
+    return createChartCSSVars(processedData, categoryKey)
+  }, [processedData, categoryKey])
+  
+  // Calculate total for center text
+  const totalVisitors = React.useMemo(() => {
+    return processedData.reduce((acc, curr) => acc + (curr[valueKey] || 0), 0)
+  }, [processedData, valueKey])
+  
+  console.log("🍩 DonutText: Total visitors:", totalVisitors)
+  
   return (
-    <ChartContainer
-      config={config}
-      className="mx-auto aspect-square max-h-[250px]"
-    >
-      <PieChart>
-        <ChartTooltip
-          cursor={false}
-          content={<ChartTooltipContent hideLabel />}
-        />
-        <Pie
-          data={processedData}
-          dataKey={valueKey}
-          nameKey={categoryKey}
-          innerRadius={innerRadius}
-          strokeWidth={5}
+    <div data-chart={id} className={`w-full ${className}`} style={chartCSSVars}>
+      <ChartStyle id={id} config={config} />
+      <div className="relative">
+        <ChartContainer
+          config={config}
+          className="mx-auto aspect-square max-h-[250px]"
         >
-          <Label
-            content={({ viewBox }) => {
-              if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                return (
-                  <text
-                    x={viewBox.cx}
-                    y={viewBox.cy}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                  >
-                    <tspan
-                      x={viewBox.cx}
-                      y={viewBox.cy}
-                      className="fill-foreground text-3xl font-bold"
-                    >
-                      {centerText?.value || totalValue.toLocaleString()}
-                    </tspan>
-                    <tspan
-                      x={viewBox.cx}
-                      y={(viewBox.cy || 0) + 24}
-                      className="fill-muted-foreground"
-                    >
-                      {centerText?.label || config[valueKey]?.label || "Total"}
-                    </tspan>
-                  </text>
-                )
-              }
-            }}
-          />
-        </Pie>
-      </PieChart>
-    </ChartContainer>
-  )
-}
-
-// Export dynamic component with SSR disabled to prevent hydration issues
-export const ChartPieDonutText = dynamic(() => Promise.resolve(ChartPieDonutTextInternal), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[250px] w-full flex items-center justify-center text-muted-foreground">
-      Loading chart...
+          <PieChart>
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Pie
+              data={processedData}
+              dataKey={valueKey}
+              nameKey={categoryKey}
+              innerRadius={innerRadius}
+            />
+          </PieChart>
+        </ChartContainer>
+        
+        {/* Center text overlay */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <div className="text-3xl font-bold text-foreground">
+            {totalVisitors.toLocaleString()}
+          </div>
+          <div className="text-sm text-muted-foreground">
+            Visitors
+          </div>
+        </div>
+      </div>
     </div>
-  ),
-}) 
+  )
+} 

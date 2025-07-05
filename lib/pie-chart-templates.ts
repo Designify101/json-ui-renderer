@@ -7,19 +7,19 @@ export const pieChartSimpleTemplate: RenderLayout = {
   description: "Basic pie chart showing browser market share",
   data: {
     chartData: [
-      { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-      { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-      { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-      { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-      { browser: "other", visitors: 90, fill: "var(--color-other)" },
+      { browser: "chrome", visitors: 275 },
+      { browser: "safari", visitors: 200 },
+      { browser: "firefox", visitors: 187 },
+      { browser: "edge", visitors: 173 },
+      { browser: "other", visitors: 90 },
     ],
     chartConfig: {
       visitors: { label: "Visitors" },
-      chrome: { label: "Chrome", color: "hsl(var(--chart-1))" },
-      safari: { label: "Safari", color: "hsl(var(--chart-2))" },
-      firefox: { label: "Firefox", color: "hsl(var(--chart-3))" },
-      edge: { label: "Edge", color: "hsl(var(--chart-4))" },
-      other: { label: "Other", color: "hsl(var(--chart-5))" },
+      chrome: { label: "Chrome" },
+      safari: { label: "Safari" },
+      firefox: { label: "Firefox" },
+      edge: { label: "Edge" },
+      other: { label: "Other" },
     }
   },
   root: {
@@ -103,19 +103,19 @@ export const pieChartDonutTemplate: RenderLayout = {
   description: "Donut chart showing browser market share",
   data: {
     chartData: [
-      { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-      { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-      { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-      { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-      { browser: "other", visitors: 90, fill: "var(--color-other)" },
+      { browser: "chrome", visitors: 275 },
+      { browser: "safari", visitors: 200 },
+      { browser: "firefox", visitors: 187 },
+      { browser: "edge", visitors: 173 },
+      { browser: "other", visitors: 90 },
     ],
     chartConfig: {
       visitors: { label: "Visitors" },
-      chrome: { label: "Chrome", color: "hsl(var(--chart-1))" },
-      safari: { label: "Safari", color: "hsl(var(--chart-2))" },
-      firefox: { label: "Firefox", color: "hsl(var(--chart-3))" },
-      edge: { label: "Edge", color: "hsl(var(--chart-4))" },
-      other: { label: "Other", color: "hsl(var(--chart-5))" },
+      chrome: { label: "Chrome" },
+      safari: { label: "Safari" },
+      firefox: { label: "Firefox" },
+      edge: { label: "Edge" },
+      other: { label: "Other" },
     }
   },
   root: {
@@ -199,19 +199,19 @@ export const pieChartDonutTextTemplate: RenderLayout = {
   description: "Donut chart with center text showing total visitors",
   data: {
     chartData: [
-      { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-      { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-      { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-      { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-      { browser: "other", visitors: 190, fill: "var(--color-other)" },
+      { browser: "chrome", visitors: 275 },
+      { browser: "safari", visitors: 200 },
+      { browser: "firefox", visitors: 287 },
+      { browser: "edge", visitors: 173 },
+      { browser: "other", visitors: 190 },
     ],
     chartConfig: {
       visitors: { label: "Visitors" },
-      chrome: { label: "Chrome", color: "hsl(var(--chart-1))" },
-      safari: { label: "Safari", color: "hsl(var(--chart-2))" },
-      firefox: { label: "Firefox", color: "hsl(var(--chart-3))" },
-      edge: { label: "Edge", color: "hsl(var(--chart-4))" },
-      other: { label: "Other", color: "hsl(var(--chart-5))" },
+      chrome: { label: "Chrome" },
+      safari: { label: "Safari" },
+      firefox: { label: "Firefox" },
+      edge: { label: "Edge" },
+      other: { label: "Other" },
     }
   },
   root: {
@@ -288,26 +288,26 @@ export const pieChartDonutTextTemplate: RenderLayout = {
   }
 }
 
-// Template for Pie Chart with Labels - Browser Usage
+// Template for Pie Chart with Label - Browser Usage
 export const pieChartLabelTemplate: RenderLayout = {
   id: "pie-chart-label",
-  title: "Pie Chart with Labels - Browser Usage",
+  title: "Pie Chart with Label - Browser Usage",
   description: "Pie chart with labels showing browser market share",
   data: {
     chartData: [
-      { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-      { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-      { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-      { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-      { browser: "other", visitors: 90, fill: "var(--color-other)" },
+      { browser: "chrome", visitors: 275 },
+      { browser: "safari", visitors: 200 },
+      { browser: "firefox", visitors: 187 },
+      { browser: "edge", visitors: 173 },
+      { browser: "other", visitors: 90 },
     ],
     chartConfig: {
       visitors: { label: "Visitors" },
-      chrome: { label: "Chrome", color: "hsl(var(--chart-1))" },
-      safari: { label: "Safari", color: "hsl(var(--chart-2))" },
-      firefox: { label: "Firefox", color: "hsl(var(--chart-3))" },
-      edge: { label: "Edge", color: "hsl(var(--chart-4))" },
-      other: { label: "Other", color: "hsl(var(--chart-5))" },
+      chrome: { label: "Chrome" },
+      safari: { label: "Safari" },
+      firefox: { label: "Firefox" },
+      edge: { label: "Edge" },
+      other: { label: "Other" },
     }
   },
   root: {
@@ -391,19 +391,19 @@ export const pieChartLegendTemplate: RenderLayout = {
   description: "Pie chart with legend showing browser market share",
   data: {
     chartData: [
-      { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-      { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-      { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-      { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-      { browser: "other", visitors: 90, fill: "var(--color-other)" },
+      { browser: "chrome", visitors: 275 },
+      { browser: "safari", visitors: 200 },
+      { browser: "firefox", visitors: 187 },
+      { browser: "edge", visitors: 173 },
+      { browser: "other", visitors: 90 },
     ],
     chartConfig: {
       visitors: { label: "Visitors" },
-      chrome: { label: "Chrome", color: "hsl(var(--chart-1))" },
-      safari: { label: "Safari", color: "hsl(var(--chart-2))" },
-      firefox: { label: "Firefox", color: "hsl(var(--chart-3))" },
-      edge: { label: "Edge", color: "hsl(var(--chart-4))" },
-      other: { label: "Other", color: "hsl(var(--chart-5))" },
+      chrome: { label: "Chrome" },
+      safari: { label: "Safari" },
+      firefox: { label: "Firefox" },
+      edge: { label: "Edge" },
+      other: { label: "Other" },
     }
   },
   root: {
@@ -455,29 +455,29 @@ export const pieChartStackedTemplate: RenderLayout = {
   data: {
     chartData: {
       desktop: [
-        { month: "january", desktop: 186, fill: "var(--color-january)" },
-        { month: "february", desktop: 305, fill: "var(--color-february)" },
-        { month: "march", desktop: 237, fill: "var(--color-march)" },
-        { month: "april", desktop: 173, fill: "var(--color-april)" },
-        { month: "may", desktop: 209, fill: "var(--color-may)" },
+        { month: "january", desktop: 186 },
+        { month: "february", desktop: 305 },
+        { month: "march", desktop: 237 },
+        { month: "april", desktop: 173 },
+        { month: "may", desktop: 209 },
       ],
       mobile: [
-        { month: "january", mobile: 80, fill: "var(--color-january)" },
-        { month: "february", mobile: 200, fill: "var(--color-february)" },
-        { month: "march", mobile: 120, fill: "var(--color-march)" },
-        { month: "april", mobile: 190, fill: "var(--color-april)" },
-        { month: "may", mobile: 130, fill: "var(--color-may)" },
+        { month: "january", mobile: 80 },
+        { month: "february", mobile: 200 },
+        { month: "march", mobile: 120 },
+        { month: "april", mobile: 190 },
+        { month: "may", mobile: 130 },
       ]
     },
     chartConfig: {
       visitors: { label: "Visitors" },
       desktop: { label: "Desktop" },
       mobile: { label: "Mobile" },
-      january: { label: "January", color: "hsl(var(--chart-1))" },
-      february: { label: "February", color: "hsl(var(--chart-2))" },
-      march: { label: "March", color: "hsl(var(--chart-3))" },
-      april: { label: "April", color: "hsl(var(--chart-4))" },
-      may: { label: "May", color: "hsl(var(--chart-5))" },
+      january: { label: "January" },
+      february: { label: "February" },
+      march: { label: "March" },
+      april: { label: "April" },
+      may: { label: "May" },
     }
   },
   root: {
@@ -554,7 +554,7 @@ export const pieChartStackedTemplate: RenderLayout = {
   }
 }
 
-// Template for Interactive Pie Chart - Monthly Usage
+// Template for Interactive Pie Chart - Monthly Browser Usage
 export const pieChartInteractiveTemplate: RenderLayout = {
   id: "pie-chart-interactive",
   title: "Interactive Pie Chart - Monthly Browser Usage",
@@ -562,61 +562,61 @@ export const pieChartInteractiveTemplate: RenderLayout = {
   data: {
     chartData: {
       january: [
-        { category: "chrome", value: 275, fill: "var(--color-chrome)" },
-        { category: "safari", value: 200, fill: "var(--color-safari)" },
-        { category: "firefox", value: 187, fill: "var(--color-firefox)" },
-        { category: "edge", value: 173, fill: "var(--color-edge)" },
-        { category: "other", value: 90, fill: "var(--color-other)" },
+        { category: "chrome", value: 275 },
+        { category: "safari", value: 200 },
+        { category: "firefox", value: 187 },
+        { category: "edge", value: 173 },
+        { category: "other", value: 90 },
       ],
       february: [
-        { category: "chrome", value: 320, fill: "var(--color-chrome)" },
-        { category: "safari", value: 180, fill: "var(--color-safari)" },
-        { category: "firefox", value: 210, fill: "var(--color-firefox)" },
-        { category: "edge", value: 160, fill: "var(--color-edge)" },
-        { category: "other", value: 110, fill: "var(--color-other)" },
+        { category: "chrome", value: 320 },
+        { category: "safari", value: 180 },
+        { category: "firefox", value: 210 },
+        { category: "edge", value: 160 },
+        { category: "other", value: 110 },
       ],
       march: [
-        { category: "chrome", value: 290, fill: "var(--color-chrome)" },
-        { category: "safari", value: 220, fill: "var(--color-safari)" },
-        { category: "firefox", value: 195, fill: "var(--color-firefox)" },
-        { category: "edge", value: 185, fill: "var(--color-edge)" },
-        { category: "other", value: 85, fill: "var(--color-other)" },
+        { category: "chrome", value: 290 },
+        { category: "safari", value: 220 },
+        { category: "firefox", value: 195 },
+        { category: "edge", value: 185 },
+        { category: "other", value: 85 },
       ],
       april: [
-        { category: "chrome", value: 305, fill: "var(--color-chrome)" },
-        { category: "safari", value: 190, fill: "var(--color-safari)" },
-        { category: "firefox", value: 175, fill: "var(--color-firefox)" },
-        { category: "edge", value: 195, fill: "var(--color-edge)" },
-        { category: "other", value: 95, fill: "var(--color-other)" },
+        { category: "chrome", value: 305 },
+        { category: "safari", value: 190 },
+        { category: "firefox", value: 175 },
+        { category: "edge", value: 195 },
+        { category: "other", value: 95 },
       ],
       may: [
-        { category: "chrome", value: 340, fill: "var(--color-chrome)" },
-        { category: "safari", value: 210, fill: "var(--color-safari)" },
-        { category: "firefox", value: 165, fill: "var(--color-firefox)" },
-        { category: "edge", value: 150, fill: "var(--color-edge)" },
-        { category: "other", value: 120, fill: "var(--color-other)" },
+        { category: "chrome", value: 340 },
+        { category: "safari", value: 210 },
+        { category: "firefox", value: 165 },
+        { category: "edge", value: 150 },
+        { category: "other", value: 120 },
       ],
       june: [
-        { category: "chrome", value: 360, fill: "var(--color-chrome)" },
-        { category: "safari", value: 230, fill: "var(--color-safari)" },
-        { category: "firefox", value: 155, fill: "var(--color-firefox)" },
-        { category: "edge", value: 140, fill: "var(--color-edge)" },
-        { category: "other", value: 135, fill: "var(--color-other)" },
+        { category: "chrome", value: 360 },
+        { category: "safari", value: 230 },
+        { category: "firefox", value: 155 },
+        { category: "edge", value: 140 },
+        { category: "other", value: 135 },
       ],
     },
     chartConfig: {
       visitors: { label: "Visitors" },
-      chrome: { label: "Chrome", color: "hsl(var(--chart-1))" },
-      safari: { label: "Safari", color: "hsl(var(--chart-2))" },
-      firefox: { label: "Firefox", color: "hsl(var(--chart-3))" },
-      edge: { label: "Edge", color: "hsl(var(--chart-4))" },
-      other: { label: "Other", color: "hsl(var(--chart-5))" },
-      january: { label: "January", color: "hsl(var(--chart-1))" },
-      february: { label: "February", color: "hsl(var(--chart-2))" },
-      march: { label: "March", color: "hsl(var(--chart-3))" },
-      april: { label: "April", color: "hsl(var(--chart-4))" },
-      may: { label: "May", color: "hsl(var(--chart-5))" },
-      june: { label: "June", color: "hsl(var(--chart-1))" },
+      chrome: { label: "Chrome" },
+      safari: { label: "Safari" },
+      firefox: { label: "Firefox" },
+      edge: { label: "Edge" },
+      other: { label: "Other" },
+      january: { label: "January" },
+      february: { label: "February" },
+      march: { label: "March" },
+      april: { label: "April" },
+      may: { label: "May" },
+      june: { label: "June" },
     }
   },
   root: {

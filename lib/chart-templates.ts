@@ -29,8 +29,8 @@ export const interactiveBarChartTemplate: RenderLayout = {
     ],
     chartConfig: {
       views: { label: "Page Views" },
-      desktop: { label: "Desktop", color: "var(--chart-2)" },
-      mobile: { label: "Mobile", color: "var(--chart-1)" },
+      desktop: { label: "Desktop" },
+      mobile: { label: "Mobile" },
     },
   },
   root: {
@@ -174,7 +174,6 @@ export const interactiveBarChartTemplate: RenderLayout = {
                     type: "Bar",
                     props: {
                       dataKey: "desktop",
-                      fill: "var(--color-desktop)",
                     },
                   },
                 ],

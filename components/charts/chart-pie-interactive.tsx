@@ -19,68 +19,69 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { CHART_COLORS, getChartColor, assignChartColors, createChartCSSVars } from "@/lib/chart-colors"
 
 export const description = "An interactive pie chart"
 
 // Default interactive pie chart data - browser usage per month
 const defaultChartData = {
   january: [
-    { category: "chrome", value: 275, fill: "var(--color-chrome)" },
-    { category: "safari", value: 200, fill: "var(--color-safari)" },
-    { category: "firefox", value: 187, fill: "var(--color-firefox)" },
-    { category: "edge", value: 173, fill: "var(--color-edge)" },
-    { category: "other", value: 90, fill: "var(--color-other)" },
+    { category: "chrome", value: 275 },
+    { category: "safari", value: 200 },
+    { category: "firefox", value: 187 },
+    { category: "edge", value: 173 },
+    { category: "other", value: 90 },
   ],
   february: [
-    { category: "chrome", value: 320, fill: "var(--color-chrome)" },
-    { category: "safari", value: 180, fill: "var(--color-safari)" },
-    { category: "firefox", value: 210, fill: "var(--color-firefox)" },
-    { category: "edge", value: 160, fill: "var(--color-edge)" },
-    { category: "other", value: 110, fill: "var(--color-other)" },
+    { category: "chrome", value: 320 },
+    { category: "safari", value: 180 },
+    { category: "firefox", value: 210 },
+    { category: "edge", value: 160 },
+    { category: "other", value: 110 },
   ],
   march: [
-    { category: "chrome", value: 290, fill: "var(--color-chrome)" },
-    { category: "safari", value: 220, fill: "var(--color-safari)" },
-    { category: "firefox", value: 195, fill: "var(--color-firefox)" },
-    { category: "edge", value: 185, fill: "var(--color-edge)" },
-    { category: "other", value: 85, fill: "var(--color-other)" },
+    { category: "chrome", value: 290 },
+    { category: "safari", value: 220 },
+    { category: "firefox", value: 195 },
+    { category: "edge", value: 185 },
+    { category: "other", value: 85 },
   ],
   april: [
-    { category: "chrome", value: 305, fill: "var(--color-chrome)" },
-    { category: "safari", value: 190, fill: "var(--color-safari)" },
-    { category: "firefox", value: 175, fill: "var(--color-firefox)" },
-    { category: "edge", value: 195, fill: "var(--color-edge)" },
-    { category: "other", value: 95, fill: "var(--color-other)" },
+    { category: "chrome", value: 305 },
+    { category: "safari", value: 190 },
+    { category: "firefox", value: 175 },
+    { category: "edge", value: 195 },
+    { category: "other", value: 95 },
   ],
   may: [
-    { category: "chrome", value: 340, fill: "var(--color-chrome)" },
-    { category: "safari", value: 210, fill: "var(--color-safari)" },
-    { category: "firefox", value: 165, fill: "var(--color-firefox)" },
-    { category: "edge", value: 150, fill: "var(--color-edge)" },
-    { category: "other", value: 120, fill: "var(--color-other)" },
+    { category: "chrome", value: 340 },
+    { category: "safari", value: 210 },
+    { category: "firefox", value: 165 },
+    { category: "edge", value: 150 },
+    { category: "other", value: 120 },
   ],
   june: [
-    { category: "chrome", value: 360, fill: "var(--color-chrome)" },
-    { category: "safari", value: 230, fill: "var(--color-safari)" },
-    { category: "firefox", value: 155, fill: "var(--color-firefox)" },
-    { category: "edge", value: 140, fill: "var(--color-edge)" },
-    { category: "other", value: 135, fill: "var(--color-other)" },
+    { category: "chrome", value: 360 },
+    { category: "safari", value: 230 },
+    { category: "firefox", value: 155 },
+    { category: "edge", value: 140 },
+    { category: "other", value: 135 },
   ],
 }
 
 const defaultChartConfig = {
   visitors: { label: "Visitors" },
-  chrome: { label: "Chrome", color: "hsl(var(--chart-1))" },
-  safari: { label: "Safari", color: "hsl(var(--chart-2))" },
-  firefox: { label: "Firefox", color: "hsl(var(--chart-3))" },
-  edge: { label: "Edge", color: "hsl(var(--chart-4))" },
-  other: { label: "Other", color: "hsl(var(--chart-5))" },
-  january: { label: "January", color: "hsl(var(--chart-1))" },
-  february: { label: "February", color: "hsl(var(--chart-2))" },
-  march: { label: "March", color: "hsl(var(--chart-3))" },
-  april: { label: "April", color: "hsl(var(--chart-4))" },
-  may: { label: "May", color: "hsl(var(--chart-5))" },
-  june: { label: "June", color: "hsl(var(--chart-1))" },
+  chrome: { label: "Chrome" },
+  safari: { label: "Safari" },
+  firefox: { label: "Firefox" },
+  edge: { label: "Edge" },
+  other: { label: "Other" },
+  january: { label: "January" },
+  february: { label: "February" },
+  march: { label: "March" },
+  april: { label: "April" },
+  may: { label: "May" },
+  june: { label: "June" },
 } satisfies ChartConfig
 
 interface ChartPieInteractiveProps {
@@ -127,19 +128,21 @@ function ChartPieInteractiveInternal({
   const valueKey = currentData.length > 0 ? 
     Object.keys(currentData[0]).find(key => typeof currentData[0][key] === 'number') || 'value' : 'value'
   
-  // Add fill colors dynamically if not present
-  const processedData = currentData.map((item: any, index: number) => ({
-    ...item,
-    fill: item.fill || config[item[categoryKey]]?.color || `hsl(var(--chart-${(index % 5) + 1}))`
-  }))
+  // Add dynamic colors to data using shared utility
+  const processedData = assignChartColors(currentData)
   
   // Calculate total for center text
   const totalValue = React.useMemo(() => {
     return processedData.reduce((acc: number, item: any) => acc + (item[valueKey] || 0), 0)
   }, [processedData, valueKey])
   
+  // Create CSS variables for the current colors using shared utility
+  const chartCSSVars = React.useMemo(() => {
+    return createChartCSSVars(processedData, categoryKey)
+  }, [processedData, categoryKey])
+  
   return (
-    <div data-chart={id} className={`w-full ${className}`}>
+    <div data-chart={id} className={`w-full ${className}`} style={chartCSSVars}>
       <ChartStyle id={id} config={config} />
       
       {/* Header with dropdown in same row */}
@@ -155,14 +158,15 @@ function ChartPieInteractiveInternal({
           <SelectContent align="end">
             {months.map((month) => {
               const configItem = config[month as keyof typeof config]
+              const monthIndex = months.indexOf(month)
+              const monthColor = getChartColor(monthIndex)
+              
               return (
                 <SelectItem key={month} value={month}>
                   <div className="flex items-center gap-2 text-sm">
                     <span
                       className="flex h-3 w-3 shrink-0 rounded-sm"
-                      style={{
-                        backgroundColor: configItem?.color || `hsl(var(--chart-${(months.indexOf(month) % 5) + 1}))`,
-                      }}
+                      style={{ backgroundColor: monthColor }}
                     />
                     {configItem?.label || month}
                   </div>

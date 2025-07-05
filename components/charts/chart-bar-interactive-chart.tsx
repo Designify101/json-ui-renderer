@@ -10,6 +10,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import { getChartColor } from "@/lib/chart-colors"
 
 interface ChartBarInteractiveChartProps {
   data: any[]
@@ -25,6 +26,19 @@ function ChartBarInteractiveChartInternal({
   className = "aspect-auto h-[250px] w-full",
   activeChart = "desktop"
 }: ChartBarInteractiveChartProps) {
+  // Get dynamic color for the active chart
+  const activeChartColor = React.useMemo(() => {
+    // Try to get color from config first, then fall back to dynamic color
+    const configColor = config[activeChart]?.color
+    if (configColor) {
+      return configColor
+    }
+    // Get color based on position in config keys
+    const configKeys = Object.keys(config)
+    const activeIndex = configKeys.indexOf(activeChart)
+    return getChartColor(activeIndex >= 0 ? activeIndex : 0)
+  }, [activeChart, config])
+  
   return (
     <ChartContainer
       config={config}
@@ -68,18 +82,17 @@ function ChartBarInteractiveChartInternal({
             />
           }
         />
-        <Bar dataKey={activeChart} fill={`var(--color-${activeChart})`} />
+        <Bar dataKey={activeChart} fill={activeChartColor} />
       </BarChart>
     </ChartContainer>
   )
 }
 
-// Export dynamic component with SSR disabled to prevent hydration issues
-export const ChartBarInteractiveChart = dynamic(() => Promise.resolve(ChartBarInteractiveChartInternal), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[250px] w-full flex items-center justify-center text-muted-foreground">
-      Loading chart...
-    </div>
-  ),
-}) 
+// Export with dynamic loading to prevent SSR issues
+export const ChartBarInteractiveChart = dynamic(
+  () => Promise.resolve(ChartBarInteractiveChartInternal),
+  {
+    ssr: false,
+    loading: () => <div className="h-[250px] w-full bg-muted animate-pulse rounded-md" />
+  }
+) 

@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import dynamic from "next/dynamic"
 import { Pie, PieChart } from "recharts"
 
@@ -8,90 +9,89 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
+  ChartStyle,
 } from "@/components/ui/chart"
+import { assignChartColors, createChartCSSVars } from "@/lib/chart-colors"
 
 export const description = "A donut chart"
 
-// Default donut chart data - browser usage statistics
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 90, fill: "var(--color-other)" },
+// Default donut chart data - browser usage
+const defaultChartData = [
+  { browser: "chrome", visitors: 275 },
+  { browser: "safari", visitors: 200 },
+  { browser: "firefox", visitors: 187 },
+  { browser: "edge", visitors: 173 },
+  { browser: "other", visitors: 90 },
 ]
 
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "hsl(var(--chart-1))",
-  },
-  safari: {
-    label: "Safari",
-    color: "hsl(var(--chart-2))",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "hsl(var(--chart-3))",
-  },
-  edge: {
-    label: "Edge",
-    color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
-  },
+const defaultChartConfig = {
+  visitors: { label: "Visitors" },
+  chrome: { label: "Chrome" },
+  safari: { label: "Safari" },
+  firefox: { label: "Firefox" },
+  edge: { label: "Edge" },
+  other: { label: "Other" },
 } satisfies ChartConfig
 
 interface ChartPieDonutProps {
   data?: any[]
   config?: any
   innerRadius?: number
+  className?: string
 }
 
 // Internal chart component
-function ChartPieDonutInternal({ data = chartData, config = chartConfig, innerRadius = 60 }: ChartPieDonutProps) {
-  // Dynamically detect the category key (first string field) and value key (first numeric field)
-  const categoryKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'browser' : 'browser'
-  const valueKey = data.length > 0 ? Object.keys(data[0]).find(key => typeof data[0][key] === 'number') || 'visitors' : 'visitors'
+function ChartPieDonutInternal({ 
+  data = defaultChartData,
+  config = defaultChartConfig,
+  innerRadius = 60,
+  className = ""
+}: ChartPieDonutProps) {
+  const id = "pie-donut"
   
-  // Add fill colors dynamically if not present
-  const processedData = data.map((item, index) => ({
-    ...item,
-    fill: item.fill || config[item[categoryKey]]?.color || `hsl(var(--chart-${(index % 5) + 1}))`
-  }))
-
+  // Dynamically detect keys from data
+  const categoryKey = data.length > 0 ? 
+    Object.keys(data[0]).find(key => typeof data[0][key] === 'string') || 'category' : 'category'
+  const valueKey = data.length > 0 ? 
+    Object.keys(data[0]).find(key => typeof data[0][key] === 'number') || 'value' : 'value'
+  
+  // Add dynamic colors to data using shared utility
+  const processedData = assignChartColors(data)
+  
+  // Create CSS variables for the current colors using shared utility
+  const chartCSSVars = React.useMemo(() => {
+    return createChartCSSVars(processedData, categoryKey)
+  }, [processedData, categoryKey])
+  
   return (
-    <ChartContainer
-      config={config}
-      className="mx-auto aspect-square max-h-[250px]"
-    >
-      <PieChart>
-        <ChartTooltip
-          cursor={false}
-          content={<ChartTooltipContent hideLabel />}
-        />
-        <Pie
-          data={processedData}
-          dataKey={valueKey}
-          nameKey={categoryKey}
-          innerRadius={innerRadius}
-        />
-      </PieChart>
-    </ChartContainer>
+    <div data-chart={id} className={`w-full ${className}`} style={chartCSSVars}>
+      <ChartStyle id={id} config={config} />
+      <ChartContainer
+        config={config}
+        className="mx-auto aspect-square max-h-[250px]"
+      >
+        <PieChart>
+          <ChartTooltip
+            cursor={false}
+            content={<ChartTooltipContent hideLabel />}
+          />
+          <Pie
+            data={processedData}
+            dataKey={valueKey}
+            nameKey={categoryKey}
+            innerRadius={innerRadius}
+          />
+        </PieChart>
+      </ChartContainer>
+    </div>
   )
 }
 
-// Export dynamic component with SSR disabled to prevent hydration issues
-export const ChartPieDonut = dynamic(() => Promise.resolve(ChartPieDonutInternal), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[250px] w-full flex items-center justify-center text-muted-foreground">
-      Loading chart...
-    </div>
-  ),
-}) 
+// Export with dynamic loading to prevent SSR issues
+export const ChartPieDonut = dynamic(
+  () => Promise.resolve(ChartPieDonutInternal),
+  { 
+    ssr: false,
+    loading: () => <div className="h-[250px] w-full bg-muted animate-pulse rounded-md" />
+  }
+) 
