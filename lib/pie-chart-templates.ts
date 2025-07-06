@@ -196,17 +196,17 @@ export const pieChartDonutTemplate: RenderLayout = {
 export const pieChartDonutTextTemplate: RenderLayout = {
   id: "pie-chart-donut-text",
   title: "Donut Chart with Text - Browser Usage",
-  description: "Donut chart with center text showing total visitors",
+  description: "Donut chart with center text showing total visitors with formatted numbers",
   data: {
     chartData: [
-      { browser: "chrome", visitors: 275 },
-      { browser: "safari", visitors: 200 },
-      { browser: "firefox", visitors: 287 },
-      { browser: "edge", visitors: 173 },
-      { browser: "other", visitors: 190 },
+      { browser: "chrome", visitors: 12500 },
+      { browser: "safari", visitors: 8200 },
+      { browser: "firefox", visitors: 4870 },
+      { browser: "edge", visitors: 3173 },
+      { browser: "other", visitors: 1900 },
     ],
     chartConfig: {
-      visitors: { label: "Visitors" },
+      visitors: { label: "Monthly Users" },
       chrome: { label: "Chrome" },
       safari: { label: "Safari" },
       firefox: { label: "Firefox" },

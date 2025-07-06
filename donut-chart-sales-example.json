@@ -1,0 +1,91 @@
+{
+  "id": "donut-chart-sales-dashboard",
+  "title": "Sales Dashboard - Donut Chart",
+  "description": "Sales performance by region with formatted numbers and configurable labels",
+  "data": {
+    "chartData": [
+      { "region": "North America", "sales": 125000 },
+      { "region": "Europe", "sales": 89500 },
+      { "region": "Asia Pacific", "sales": 67300 },
+      { "region": "South America", "sales": 45800 },
+      { "region": "Africa", "sales": 23400 }
+    ],
+    "chartConfig": {
+      "sales": { "label": "Total Revenue" },
+      "northAmerica": { "label": "North America" },
+      "europe": { "label": "Europe" },
+      "asiaPacific": { "label": "Asia Pacific" },
+      "southAmerica": { "label": "South America" },
+      "africa": { "label": "Africa" }
+    }
+  },
+  "root": {
+    "type": "Card",
+    "props": {
+      "className": "w-full max-w-lg mx-auto"
+    },
+    "children": [
+      {
+        "type": "CardHeader",
+        "props": {
+          "className": "text-center pb-2"
+        },
+        "children": [
+          {
+            "type": "CardTitle",
+            "props": {
+              "className": "text-2xl font-bold"
+            },
+            "children": [{ "text": "Sales Performance by Region" }]
+          },
+          {
+            "type": "CardDescription",
+            "children": [{ "text": "Q4 2024 sales breakdown with formatted totals" }]
+          }
+        ]
+      },
+      {
+        "type": "CardContent",
+        "props": {
+          "className": "flex flex-col items-center space-y-4"
+        },
+        "children": [
+          {
+            "type": "ChartPieDonutText",
+            "props": {
+              "data": "$data.chartData",
+              "config": "$data.chartConfig",
+              "innerRadius": 60,
+              "className": "w-full"
+            }
+          },
+          {
+            "type": "div",
+            "props": {
+              "className": "flex items-center gap-2 text-sm text-muted-foreground"
+            },
+            "children": [
+              {
+                "type": "Icon",
+                "props": {
+                  "name": "TrendingUp",
+                  "className": "h-4 w-4"
+                }
+              },
+              { "text": "Up 15% from last quarter" }
+            ]
+          },
+          {
+            "type": "div",
+            "props": {
+              "className": "text-sm text-muted-foreground text-center"
+            },
+            "children": [
+              { "text": "North America leads with highest sales volume" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+} 

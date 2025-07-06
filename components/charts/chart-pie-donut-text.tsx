@@ -11,6 +11,7 @@ import {
   ChartStyle,
 } from "@/components/ui/chart"
 import { assignChartColors, createChartCSSVars } from "@/lib/chart-colors"
+import { formatNumber } from "@/lib/utils"
 
 export const description = "A donut chart with text"
 
@@ -59,6 +60,14 @@ export function ChartPieDonutText({
     return processedData.reduce((acc, curr) => acc + (curr[valueKey] || 0), 0)
   }, [processedData, valueKey])
   
+  // Get dynamic label for center text
+  const centerLabel = React.useMemo(() => {
+    if (config && config[valueKey]) {
+      return config[valueKey].label || valueKey
+    }
+    return valueKey.charAt(0).toUpperCase() + valueKey.slice(1)
+  }, [config, valueKey])
+  
   console.log("🍩 DonutText: Total visitors:", totalVisitors)
   
   return (
@@ -86,10 +95,10 @@ export function ChartPieDonutText({
         {/* Center text overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <div className="text-3xl font-bold text-foreground">
-            {totalVisitors.toLocaleString()}
+            {formatNumber(totalVisitors)}
           </div>
           <div className="text-sm text-muted-foreground">
-            Visitors
+            {centerLabel}
           </div>
         </div>
       </div>
