@@ -1,0 +1,170 @@
+---
+description: JSON UI/Graphics Generator - Cursor Rules
+globs: 
+alwaysApply: true
+---
+# JSON UI/Graphics Generator - Cursor Rules
+
+## Core Principle: Documentation-First Development
+**ALWAYS reference the documentation before making any changes or creating new components.**
+
+### 📚 Primary Documentation References
+- **Project Overview**: `README.md` - Start here for understanding the project
+- **Architecture**: `docs/architecture.md` - System design and data flow
+- **Component Creation**: `docs/component-creation-rules.md` - MANDATORY for any new components
+- **Component Registry**: `docs/component-registry-guide.md` - How components are registered and discovered
+- **Render Engine**: `docs/render-engine-guide.md` - How JSON converts to React components
+- **JSON Schema**: `docs/json-schema-reference.md` - Valid JSON structures and properties
+- **Chart Components**: `docs/chart-components-guide.md` - All 60+ chart component patterns
+- **Template System**: `docs/template-system-guide.md` - Pre-built configurations and patterns
+- **Theme System**: `docs/theme-system-guide.md` - Styling and theming approach
+- **Data Binding**: `docs/data-binding-guide.md` - {{}} interpolation syntax and patterns
+- **Performance**: `docs/performance-guide.md` - Optimization guidelines
+- **Testing**: `docs/testing-guide.md` - Testing patterns and requirements
+- **Error Handling**: `docs/error-handling-guide.md` - Error patterns and debugging
+- **API Reference**: `docs/api-reference.md` - Complete function and component reference
+
+## 🔄 Development Workflow
+
+### Before Making Any Changes:
+1. **READ the relevant documentation** - Don't assume, verify current patterns
+2. **Check existing similar components** - Follow established patterns
+3. **Verify component registry patterns** - Check `components/render-engine/component-registry.tsx`
+4. **Review recent changes** - Check if patterns have evolved
+
+### When Creating New Components:
+1. **MUST READ**: `docs/component-creation-rules.md` - Complete component creation guidelines
+2. **Follow the established patterns** in existing components
+3. **Register the component** in the appropriate registry
+4. **Update relevant templates** if applicable
+5. **Write tests** following patterns in `docs/testing-guide.md`
+6. **Update documentation** if introducing new patterns
+
+### When Modifying Existing Components:
+1. **Understand the current implementation** by reading the code and docs
+2. **Check for dependencies** - component registry, templates, render engine
+3. **Maintain backward compatibility** unless explicitly breaking changes
+4. **Update tests** to reflect changes
+5. **Update documentation** if behavior changes
+
+## 📁 Project Structure Understanding
+
+### Component Organization:
+- `components/charts/` - Chart-specific components (60+ components)
+- `components/ui/` - Base UI components from shadcn/ui
+- `components/render-engine/` - Core rendering system
+- `components/graphics/` - High-level graphic components
+- `components/dynamic/` - Dynamic rendering components
+- `components/ui-builder/` - UI builder components
+
+### Template Organization:
+- `lib/*-templates.ts` - Template definitions by category
+- Templates follow inheritance patterns documented in `docs/template-system-guide.md`
+
+### Documentation Organization:
+- `docs/` - All comprehensive documentation
+- `README.md` - Main project overview
+- `compdoc/` - Component-specific documentation
+
+## 🎯 Component Creation Guidelines
+
+### ALWAYS Follow This Process (for new components):
+1. **Read** `docs/component-creation-rules.md` completely
+2. **Identify** the component category (chart, UI, dynamic, etc.)
+3. **Find** similar existing components as references
+4. **Follow** the established naming conventions
+5. **Implement** with proper TypeScript interfaces
+6. **Register** in the appropriate component registry
+7. **Test** following the testing patterns
+8. **Document** any new patterns or behaviors
+
+### Component Structure Requirements:
+- **TypeScript interfaces** for all props
+- **Proper error handling** with fallbacks
+- **Theme-aware styling** using CSS variables
+- **Responsive design** patterns
+- **Accessibility** considerations
+- **Performance optimizations** where applicable
+
+## 🔧 Technical Constraints
+
+### Always Consider:
+- **Performance**: Check `docs/performance-guide.md` for optimization patterns
+- **Security**: No direct HTML injection, validate all inputs
+- **Type Safety**: Use proper TypeScript interfaces
+- **Error Handling**: Graceful degradation patterns
+- **Browser Compatibility**: Follow established patterns
+- **Bundle Size**: Consider impact on build size
+
+### Data Binding Patterns:
+- **{{}}** syntax for interpolation
+- **$data.** prefix for direct data references
+- **Conditional rendering** patterns
+- **Nested data access** patterns
+- Reference: `docs/data-binding-guide.md`
+
+## 📝 Documentation Maintenance
+
+### MANDATORY: Update Documentation When:
+- **Adding new component types** → Update `docs/component-creation-rules.md`
+- **Changing component registry** → Update `docs/component-registry-guide.md`
+- **Modifying render engine** → Update `docs/render-engine-guide.md`
+- **Adding new JSON schema** → Update `docs/json-schema-reference.md`
+- **Changing templates** → Update `docs/template-system-guide.md`
+- **Modifying theme system** → Update `docs/theme-system-guide.md`
+- **Adding new data binding patterns** → Update `docs/data-binding-guide.md`
+- **Performance changes** → Update `docs/performance-guide.md`
+- **New error patterns** → Update `docs/error-handling-guide.md`
+- **API changes** → Update `docs/api-reference.md`
+
+### Documentation Update Process:
+1. **Identify** which documentation files are affected
+2. **Update** the relevant sections with new information
+3. **Maintain** consistency with existing patterns
+4. **Verify** all examples and code snippets work
+5. **Update** cross-references and links if needed
+
+## 🚨 Critical Reminders
+
+### Never Hard-Code Assumptions:
+- **Always check current documentation** before implementing
+- **Patterns may have evolved** since last interaction
+- **New constraints** may have been introduced
+- **Performance optimizations** may have changed approach
+
+### Always Ask These Questions:
+1. What does the current documentation say about this?
+2. Are there existing similar components I should reference?
+3. What are the current performance requirements?
+4. How should this integrate with the render engine?
+5. What documentation needs updating after this change?
+
+### Red Flags - Stop and Check Documentation:
+- Creating components without reading `docs/component-creation-rules.md`
+- Modifying render engine without understanding `docs/render-engine-guide.md`
+- Adding new JSON schema without checking `docs/json-schema-reference.md`
+- Making performance changes without consulting `docs/performance-guide.md`
+- Changing error handling without reviewing `docs/error-handling-guide.md`
+
+## 💡 Best Practices
+
+### Code Quality:
+- **Follow established patterns** in existing codebase
+- **Use TypeScript strictly** - no `any` types
+- **Comment complex logic** - explain why, not what
+- **Keep components focused** - single responsibility principle
+- **Optimize for readability** - code is read more than written
+
+### Testing:
+- **Write tests** for all new components
+- **Follow testing patterns** in `docs/testing-guide.md`
+- **Test edge cases** and error conditions
+- **Include visual regression tests** for UI components
+
+### Performance:
+- **Consider render performance** for large datasets
+- **Optimize bundle size** - code splitting where appropriate
+- **Use React.memo** for expensive components
+- **Profile before optimizing** - measure first
+
+Remember: **Documentation is the source of truth**. When in doubt, read the docs first, then implement. Keep documentation updated as the project evolves. 
